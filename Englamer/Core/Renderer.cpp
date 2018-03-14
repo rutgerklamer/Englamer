@@ -187,7 +187,7 @@ std::vector<glm::vec4> Renderer::render_debug_calculate_frustum_planes(Camera* c
 	glm::vec3 fartop = hheight*fr*camera->get_up();
 	glm::vec3 nearright = (hwidth*nr*camera->get_right()) * (float)config::width / (float)config::height;
 	glm::vec3 neartop = hheight*nr*camera->get_up();
-	glm::vec3 center = glm::vec3(1, 1, 1) + fr*camera->get_front();
+	glm::vec3 center = glm::vec3(0, 0, 0) + fr*camera->get_front();
 
 	glm::vec3 ftl = center - farright + fartop; //far top left
 	glm::vec3 fbr = center + farright - fartop; //far bottom right

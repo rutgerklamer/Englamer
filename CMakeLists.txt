@@ -87,6 +87,7 @@ set(ENGLAMER_SOURCE
 	Englamer/Scene/Superscene.cpp
 	Englamer/Entities/Entity.cpp
 	Englamer/Entities/Mesh.cpp
+	Englamer/Utils/Resourcemanager.cpp
   )
 
   set(MJS_SOURCE
