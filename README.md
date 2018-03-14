@@ -7,7 +7,9 @@ Building
 -----
 
 On Debian-based Linux, install the following libraries:
-	-sudo apt-get install -y git cmake doxygen g++ libgl1-mesa-dev libglu1-mesa-dev libxrandr-dev libxi-dev
+
+	sudo apt-get install -y git cmake doxygen g++ libgl1-mesa-dev libglu1-mesa-dev libxrandr-dev libxi-dev
+
 On Windows and MacOS:
 	Install make and cmake, and make sure you have atleast the C++11 compiler installed.
 Use those command to build:
