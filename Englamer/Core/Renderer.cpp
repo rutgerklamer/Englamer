@@ -165,7 +165,7 @@ void Renderer::render_debug_camera(Shader* shader, Camera* camera, Camera* rende
 		m = glm::scale(m, glm::vec3(0.1f, 0.1f, 0.1f));
 		glm::mat4 mvp = render_camera->get_projection_matrix() * render_camera->get_view_matrix() * m;
 		glUniformMatrix4fv(glGetUniformLocation(shader->shaderProgram, "mvp"), 1, GL_FALSE, glm::value_ptr(mvp));
-		glUniform3f(glGetUniformLocation(shader->shaderProgram, "color"), 1, 0, 0);
+		glUniform3f(glGetUniformLocation(shader->shaderProgram, "color"), 0, 0, 1);
 		m_debug_mesh->draw();
 		glDrawArrays(GL_LINE_STRIP, 0, m_debug_mesh->get_buffer_size());
 	}
