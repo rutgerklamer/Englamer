@@ -88,6 +88,7 @@ set(ENGLAMER_SOURCE
 	Englamer/Entities/Entity.cpp
 	Englamer/Entities/Mesh.cpp
 	Englamer/Utils/Resourcemanager.cpp
+	Englamer/Utils/Frustum.cpp
   )
 
   set(MJS_SOURCE
