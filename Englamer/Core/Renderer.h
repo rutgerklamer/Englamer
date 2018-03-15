@@ -18,7 +18,6 @@ class Renderer {
 		void render_debug_camera(Shader* shader, Camera* camera, Camera* render_camera);
 		std::vector<glm::vec4> render_debug_calculate_frustum_planes(Camera* camera);
 		void render_debug_set_boundaries(glm::vec3 min, glm::vec3 max);
-		bool frustum_culling(Camera* camera, Entity* entity);
 		Mesh* m_debug_mesh;
 };
 #endif RENDERER_H

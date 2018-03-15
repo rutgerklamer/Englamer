@@ -11,6 +11,7 @@
 
 #include "Englamer/Core/Config.h"
 #include "Englamer/Utils/Frustum.h"
+#include "Englamer/Entities/Entity.h"
 
 class Camera
 {
@@ -49,6 +50,8 @@ public:
 	* The pitch and yaw
 	*/
 	void update_camera_vector();
+
+	void update();
 	glm::vec3 get_right();
 	glm::vec3 get_front();
 	glm::vec3 get_up();
@@ -57,9 +60,11 @@ public:
 	float get_near();
 	float get_far();
 	float get_fov();
+	bool is_in_frustum(Entity* e);
 
 	glm::vec3 position;
 private:
+	glm::vec3 last_position;
 	glm::vec3 front;
 	glm::vec3 up;
 	glm::vec3 right;
@@ -74,6 +79,8 @@ private:
 	float zNear;
 
 	float xOff, yOff;
+
+	Frustum* frustum;
 };
 
 #endif CAMERA_H

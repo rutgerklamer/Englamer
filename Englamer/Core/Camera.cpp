@@ -17,6 +17,9 @@ Camera::Camera(glm::vec3 position, glm::vec3 up, float yaw, float pitch, glm::ve
 
 	this->yOff = 0;
 	this->xOff = 0;
+
+	this->frustum = new Frustum();
+	frustum->calculate_frustum(this->right, this->up, this->front, this->position, this->zoom, this->zNear, this->zFar);
 }
 
 Camera::~Camera()
@@ -26,7 +29,6 @@ Camera::~Camera()
 
 glm::mat4 Camera::get_view_matrix()
 {
-	
 	return glm::lookAt(this->position, this->position + this->front, this->up);
 }
 
@@ -52,10 +54,16 @@ void Camera::process_mouse_movement(float xOffset, float yOffset, bool constrain
 			this->yOff = -89.0f;
 		}
 	}
+	frustum->calculate_frustum(this->right, this->up, this->front, this->position, this->zoom, this->zNear, this->zFar);
 	this->update_camera_vector();
 }
 
-
+void Camera::update()
+{
+	if (last_position != position)
+		frustum->calculate_frustum(this->right, this->up, this->front, this->position, this->zoom, this->zNear, this->zFar);
+	last_position = position;
+}
 
 void Camera::update_camera_vector()
 {
@@ -127,4 +135,10 @@ void Camera::process_mouse_croll(float yOffset)
 		this->zoom = 1.0f;
 	if (this->zoom >= 45.0f)
 		this->zoom = 45.0f;
+	frustum->calculate_frustum(this->right, this->up, this->front, this->position, this->zoom, this->zNear, this->zFar);
+}
+
+bool Camera::is_in_frustum(Entity* e)
+{
+	return this->frustum->is_in_frustum(e);
 }

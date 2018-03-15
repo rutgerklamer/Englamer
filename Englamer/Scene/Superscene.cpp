@@ -68,6 +68,10 @@ void Superscene::debug_update(float dt)
 
 void Superscene::update_children(float dt)
 {
+	get_camera()->update();
+#ifdef _DEBUG
+	get_debug_camera()->update();
+#endif _DEBUG
 	for (int i = 0; i < m_children.size(); i++) {
 		m_children[i]->update(dt);
 	}
