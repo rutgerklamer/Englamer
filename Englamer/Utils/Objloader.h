@@ -6,7 +6,7 @@
 #include "Englamer/Entities/Mesh.h"
 
 namespace objloader {
-	std::vector<vertex> load_object(const char* path)
+	std::vector<vertex> load_model(const char* path)
 	{
 		std::vector<vertex> model;
 		std::vector<glm::vec3> temp_vertices;

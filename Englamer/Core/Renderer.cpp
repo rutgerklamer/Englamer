@@ -147,10 +147,7 @@ void Renderer::render_debug_mesh(Entity* entity, Shader* shader, Camera* camera)
 	shader->Use();
 	glm::mat4 mvp = camera->get_projection_matrix() * camera->get_view_matrix() * entity->get_model_matrix();
 	glUniformMatrix4fv(glGetUniformLocation(shader->shaderProgram, "mvp"), 1, GL_FALSE, glm::value_ptr(mvp));
-	if (frustum_culling(camera, entity))
-		glUniform3f(glGetUniformLocation(shader->shaderProgram, "color"), 0, 1, 0);
-	else
-		glUniform3f(glGetUniformLocation(shader->shaderProgram, "color"), 1, 0, 0);
+	glUniform3f(glGetUniformLocation(shader->shaderProgram, "color"), 1, 0, 0);
 	render_debug_set_boundaries(entity->mesh->m_mesh_data.min, entity->mesh->m_mesh_data.max);
 	m_debug_mesh->bind();
 	m_debug_mesh->draw();

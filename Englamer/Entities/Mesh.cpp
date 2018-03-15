@@ -1,5 +1,4 @@
 #include "Englamer/Entities/Mesh.h"
-#include "Englamer/Utils/Objloader.h"
 #include "Englamer/Utils/Resourcemanager.h"
 
 Mesh::Mesh()
@@ -104,14 +103,7 @@ void Mesh::make_box()
 
 void Mesh::make_model(const char* file)
 {
-	if (Resourcemanager::does_object_exist(file)) {
-		m_mesh_data.vertices = objloader::load_object(file);
-		Resourcemanager::create_object_existance(file, &m_mesh_data.vertices);
-	}
-	else {
-		m_mesh_data.vertices = Resourcemanager::get_object_existance(file);
-		m_mesh_data.vertices = objloader::load_object(file);
-	}
+	m_mesh_data.vertices = Resourcemanager::get_model(file);
 	calculate_bounding_box();
 	this->size = m_mesh_data.vertices.size();
 	glGenVertexArrays(1, &VAO);
