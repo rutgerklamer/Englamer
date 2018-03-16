@@ -109,7 +109,7 @@ void Scene1::update(float dt)
 ```
 
 
-Adding Components to entities
+Adding/Getting/Changing Components of/to entities
 -----
 Adding components is easy
 ```cpp
@@ -133,6 +133,7 @@ Player::~Player()
 
 void Player::update(float dt)
 {
+	((Transform*)this->get_component(TRANSFORM))->position += glm::vec3(0.1f,-0.1f,0.1f);
 	// We can acces the component in runtime
 	if (we_are_dead)
 		((Mesh*)this->get_component(MESH))->make_model("Assets/dead_teapot.obj");
