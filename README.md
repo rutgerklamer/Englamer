@@ -46,6 +46,99 @@ References
 
 - <http://learnopengl.com/>
 
+Making multiple scenes
+-----
+To add more scenes, you can use this example:
+
+```cpp
+// Include all necessary files
+#include <iostream>
+#include "Englamer/Core/Core.h"
+#include "Demo/Scene1.h"
+#include "Demo/Scene2.h"
+
+int main()
+{
+	// Make the new scenes
+	Scene1* m_scene = new Scene1();
+	Scene2* m_scene2 = new Scene2();
+	// Create the core
+	Core* m_core = new Core();
+	// Make the core add the scenes to the scenemanager
+	m_core->add_scene(m_scene);
+	m_core->add_scene(m_scene2);
+	// Initialize and run
+	m_core->init();
+	m_core->run();
+	// Cleanup
+	delete m_core;
+	delete m_scene;
+	delete m_scene2;
+	return 0;
+}
+```
+
+Adding entities to the scene
+-----
+Adding an entity to the scene is pretty simple as demonstrated below
+
+```cpp
+#include "Demo/Scene1.h"
+
+Scene1::Scene1() : Superscene()
+{
+	// This should be an entity
+	Player* p = new Player();
+	// Set it's position
+	p->position = glm::vec3 (5,5,5);
+	// Add it to the scene
+	this->add-child(p);
+}
+
+Scene1::~Scene1()
+{
+	// Always call this, otherwise all entities won't get deleted
+	cleanup();
+}
+
+void Scene1::update(float dt)
+{
+	// This update get's calles every frame
+	// You can update the entity here or in his own class
+}
+```
+
+
+Adding Components to entities
+-----
+Adding components is easy
+```cpp
+#include "Demo/Player.h"
+
+Player::Player() : Entity()
+{
+	// Create a Mesh
+	Mesh* m = new Mesh();
+	// Add the mesh to the component list
+	this->add_component(m);
+	// we can do this
+	((Mesh*)this->get_component(MESH))->make_model("Assets/teapot.obj");
+	// But we can also do this if we still got a reference to the object
+	m->make_model("Assets/teapot.obj");
+}
+
+Player::~Player()
+{
+}
+
+void Player::update(float dt)
+{
+	// We can acces the component in runtime
+	if (we_are_dead)
+		((Mesh*)this->get_component(MESH))->make_model("Assets/dead_teapot.obj");
+}
+```
+
 License
 -------
 
