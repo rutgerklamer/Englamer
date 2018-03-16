@@ -16,13 +16,12 @@ class Entity
 		~Entity();
 		virtual void update(float dt);
 		void add_component(Component* component);
+		Component* get_component(component_type c);
 		glm::mat4 get_model_matrix();
-		glm::mat4 get_rotation_matrix();
-		glm::mat4 get_scale_matrix();
-		glm::mat4 get_position_matrix();
 		glm::vec3 position;
 		glm::vec3 rotation;
 		glm::vec3 scale;
+private:
 		Mesh* mesh;
 };
 #endif ENTITY_H

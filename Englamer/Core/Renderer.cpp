@@ -15,16 +15,16 @@ void Renderer::render_scene(Superscene* scene, Shader* shader)
 {
 	shader->Use();
 	for (int i = 0; i < scene->m_children.size(); i++) {
-		if (scene->m_children[i] && scene->m_children[i]->mesh && scene->m_children[i]->mesh->get_enabled() && scene->get_camera()->is_in_frustum(scene->m_children[i])) {
+		if (scene->m_children[i] && scene->m_children[i]->get_component(MESH) && scene->m_children[i]->get_component(MESH)->get_enabled() && scene->get_camera()->is_in_frustum(scene->m_children[i])) {
 			Entity* entity = scene->m_children[i];
 			glm::mat4 mvp = scene->get_camera()->get_projection_matrix() * scene->get_camera()->get_view_matrix() * entity->get_model_matrix();
 			glUniformMatrix4fv(glGetUniformLocation(shader->shaderProgram, "mvp"), 1, GL_FALSE, glm::value_ptr(mvp));
-			glUniform3f(glGetUniformLocation(shader->shaderProgram, "color"), entity->mesh->get_color().x, entity->mesh->get_color().y, entity->mesh->get_color().z);
-			entity->mesh->draw();
-			glDrawArrays(GL_TRIANGLES, 0, entity->mesh->get_buffer_size());
+			glUniform3f(glGetUniformLocation(shader->shaderProgram, "color"), ((Mesh*)entity->get_component(MESH))->get_color().x, ((Mesh*)entity->get_component(MESH))->get_color().y, ((Mesh*)entity->get_component(MESH))->get_color().z);
+			((Mesh*)entity->get_component(MESH))->draw();
+			glDrawArrays(GL_TRIANGLES, 0, ((Mesh*)entity->get_component(MESH))->get_buffer_size());
 		}
 #ifdef _DEBUG
-		if (scene->m_children[i] && scene->m_children[i]->mesh && scene->get_debug_camera()->is_in_frustum(scene->m_children[i]))
+		if (scene->m_children[i] && scene->m_children[i]->get_component(MESH) && scene->get_debug_camera()->is_in_frustum(scene->m_children[i]))
 			render_debug_mesh(scene->m_children[i], shader, scene->get_camera());
 #endif _DEBUG
 	}
@@ -41,7 +41,7 @@ void Renderer::render_debug_mesh(Entity* entity, Shader* shader, Camera* camera)
 	glm::mat4 mvp = camera->get_projection_matrix() * camera->get_view_matrix() * entity->get_model_matrix();
 	glUniformMatrix4fv(glGetUniformLocation(shader->shaderProgram, "mvp"), 1, GL_FALSE, glm::value_ptr(mvp));
 	glUniform3f(glGetUniformLocation(shader->shaderProgram, "color"), 1, 0, 0);
-	render_debug_set_boundaries(entity->mesh->m_mesh_data.min, entity->mesh->m_mesh_data.max);
+	render_debug_set_boundaries(((Mesh*)entity->get_component(MESH))->m_mesh_data.min, ((Mesh*)entity->get_component(MESH))->m_mesh_data.max);
 	m_debug_mesh->bind();
 	m_debug_mesh->draw();
 	glDrawArrays(GL_LINE_LOOP, 0, m_debug_mesh->get_buffer_size());

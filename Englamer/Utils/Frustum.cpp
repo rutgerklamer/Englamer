@@ -75,8 +75,8 @@ void Frustum::calculate_frustum(glm::vec3 right, glm::vec3 up, glm::vec3 front, 
 
 bool Frustum::is_in_frustum(Entity* e)
 {
-	glm::vec3 min = e->mesh->m_mesh_data.min;
-	glm::vec3 max = e->mesh->m_mesh_data.max;
+	glm::vec3 min = ((Mesh*)e->get_component(MESH))->m_mesh_data.min;
+	glm::vec3 max = ((Mesh*)e->get_component(MESH))->m_mesh_data.max;
 	glm::vec3 pos = e->position;
 	glm::vec3 boxnearbottomleft = min + pos;
 	glm::vec3 boxnearbottomright = glm::vec3(-min.x, min.y, min.z) + pos;
