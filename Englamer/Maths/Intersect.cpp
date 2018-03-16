@@ -2,10 +2,10 @@
 
 bool Intersect::intersectAABB(Entity* e1, Entity* e2)
 {
-	glm::vec3 e1min = ((Transform*)e1->get_component(TRANSFORM))->position + ((Mesh*)e1->get_component(MESH))->m_mesh_data.min * ((Transform*)e1->get_component(MESH))->scale;
-	glm::vec3 e2min = ((Transform*)e2->get_component(TRANSFORM))->position + ((Mesh*)e2->get_component(MESH))->m_mesh_data.min * ((Transform*)e2->get_component(TRANSFORM))->scale;
-	glm::vec3 e1max = ((Transform*)e1->get_component(TRANSFORM))->position + ((Mesh*)e1->get_component(MESH))->m_mesh_data.max * ((Transform*)e1->get_component(MESH))->scale;
-	glm::vec3 e2max = ((Transform*)e2->get_component(TRANSFORM))->position + ((Mesh*)e2->get_component(MESH))->m_mesh_data.max * ((Transform*)e2->get_component(TRANSFORM))->scale;
+	glm::vec3 e1min = ((Transform*)e1->get_component(TRANSFORM))->position + (((Mesh*)e1->get_component(MESH))->m_mesh_data.min * ((Transform*)e1->get_component(TRANSFORM))->scale);
+	glm::vec3 e2min = ((Transform*)e2->get_component(TRANSFORM))->position + (((Mesh*)e2->get_component(MESH))->m_mesh_data.min * ((Transform*)e2->get_component(TRANSFORM))->scale);
+	glm::vec3 e1max = ((Transform*)e1->get_component(TRANSFORM))->position + (((Mesh*)e1->get_component(MESH))->m_mesh_data.max * ((Transform*)e1->get_component(TRANSFORM))->scale);
+	glm::vec3 e2max = ((Transform*)e2->get_component(TRANSFORM))->position + (((Mesh*)e2->get_component(MESH))->m_mesh_data.max * ((Transform*)e2->get_component(TRANSFORM))->scale);
 
 	int intersectionCount = 0;
 	if (((Transform*)e1->get_component(TRANSFORM))->position.x < ((Transform*)e2->get_component(TRANSFORM))->position.x) {

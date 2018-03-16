@@ -86,7 +86,7 @@ void Superscene::update_children(float dt)
 	for (int i = 0; i < m_children.size(); i++) {
 		m_children[i]->update(dt);
 		for (int j = 0; j < m_children.size(); j++) {
-			if (m_children[i] != NULL && m_children[i]->get_component(COLLIDER) != NULL && m_children[j] != NULL && m_children[j]->get_component(COLLIDER) != NULL)
+			if (m_children[i] != m_children[j] && m_children[i] != NULL && m_children[i]->get_component(COLLIDER) != NULL && m_children[j] != NULL && m_children[j]->get_component(COLLIDER) != NULL)
 			{
 				if (Intersect::intersectAABB(m_children[i], m_children[j])) {
 					m_children[i]->collision(m_children[j]);
