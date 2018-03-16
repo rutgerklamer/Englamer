@@ -42,3 +42,8 @@ void Entity::update(float dt)
 {
 	// for linking reasons
 }
+
+void Entity::collision(Entity* other_entity)
+{
+
+}

@@ -6,6 +6,7 @@
 #include "Englamer/Entities/Entity.h"
 #include "Englamer/Core/Camera.h"
 #include "Englamer/Core/Input.h"
+#include "Englamer/Maths/Intersect.h"
 
 class Superscene {
 	public:

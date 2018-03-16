@@ -94,6 +94,7 @@ set(ENGLAMER_SOURCE
 	Englamer/Entities/Collider.cpp
 	Englamer/Utils/Resourcemanager.cpp
 	Englamer/Utils/Frustum.cpp
+	Englamer/Maths/Intersect.cpp
 	)
 
 ####################################################################

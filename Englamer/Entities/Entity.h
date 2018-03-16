@@ -17,6 +17,7 @@ class Entity
 		Entity();
 		~Entity();
 		virtual void update(float dt);
+		virtual void collision(Entity* other_entity);
 		void add_component(Component* component);
 		Component* get_component(component_type c);
 		glm::mat4 get_model_matrix();
