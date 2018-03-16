@@ -20,10 +20,8 @@ void Scene1::update(float dt)
 {
 	int objects_in_view = 0;
 	for (int i = 0; i < m_children.size(); i++)
-	{
 		if (get_camera()->is_in_frustum(m_children[i]))
 			objects_in_view++;
-	}
 	std::cout << "OBJECTS IN VIEW: " << objects_in_view << std::endl;
 	get_debug_camera()->process_mouse_movement(50.0f, 0);
 	if (Input::get_key(GLFW_KEY_D))

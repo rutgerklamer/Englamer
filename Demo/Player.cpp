@@ -2,7 +2,11 @@
 
 Player::Player() : Entity()
 {
-	this->mesh->make_model("Assets/teapot.obj");
+	Mesh* m = new Mesh();
+	this->add_component(m);
+	((Mesh*)this->get_component(MESH))->make_model("Assets/teapot.obj");
+	Transform* t = new Transform();
+	this->add_component(t);
 }
 
 Player::~Player()
