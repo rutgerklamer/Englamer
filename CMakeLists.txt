@@ -90,6 +90,7 @@ set(ENGLAMER_SOURCE
 	Englamer/Entities/Entity.cpp
 	Englamer/Entities/Mesh.cpp
 	Englamer/Entities/Component.cpp
+	Englamer/Entities/Transform.cpp
 	Englamer/Utils/Resourcemanager.cpp
 	Englamer/Utils/Frustum.cpp
 	)
