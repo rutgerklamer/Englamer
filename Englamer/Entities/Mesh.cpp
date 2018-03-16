@@ -1,10 +1,10 @@
 #include "Englamer/Entities/Mesh.h"
 #include "Englamer/Utils/Resourcemanager.h"
 
-Mesh::Mesh()
+Mesh::Mesh() : Component()
 {
 	color = glm::vec3(1,1,1);
-	enabled = true;
+	this->set_component_type(MESH);
 }
 
 Mesh::~Mesh()
@@ -148,14 +148,4 @@ void Mesh::calculate_bounding_box()
 		else if (m_mesh_data.vertices[i].z < m_mesh_data.min.z)
 			m_mesh_data.min.z = m_mesh_data.vertices[i].z;
 	}
-}
-
-bool Mesh::get_enabled()
-{
-	return enabled;
-}
-
-void Mesh::set_enabled(bool e)
-{
-	enabled = e;
 }

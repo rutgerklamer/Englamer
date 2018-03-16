@@ -15,6 +15,7 @@ class Entity
 		Entity();
 		~Entity();
 		virtual void update(float dt);
+		void add_component(Component* component);
 		glm::mat4 get_model_matrix();
 		glm::mat4 get_rotation_matrix();
 		glm::mat4 get_scale_matrix();

@@ -40,6 +40,10 @@ glm::mat4 Entity::get_position_matrix()
 	return positionmatrix;
 }
 
+void Entity::add_component(Component* component)
+{
+}
+
 void Entity::update(float dt)
 {
 	// for linking reasons

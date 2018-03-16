@@ -15,7 +15,7 @@ void Renderer::render_scene(Superscene* scene, Shader* shader)
 {
 	shader->Use();
 	for (int i = 0; i < scene->m_children.size(); i++) {
-		if (scene->m_children[i] && scene->m_children[i]->mesh->get_enabled() && scene->get_camera()->is_in_frustum(scene->m_children[i])) {
+		if (scene->m_children[i] && scene->m_children[i]->mesh && scene->m_children[i]->mesh->get_enabled() && scene->get_camera()->is_in_frustum(scene->m_children[i])) {
 			Entity* entity = scene->m_children[i];
 			glm::mat4 mvp = scene->get_camera()->get_projection_matrix() * scene->get_camera()->get_view_matrix() * entity->get_model_matrix();
 			glUniformMatrix4fv(glGetUniformLocation(shader->shaderProgram, "mvp"), 1, GL_FALSE, glm::value_ptr(mvp));
@@ -24,7 +24,7 @@ void Renderer::render_scene(Superscene* scene, Shader* shader)
 			glDrawArrays(GL_TRIANGLES, 0, entity->mesh->get_buffer_size());
 		}
 #ifdef _DEBUG
-		if (scene->m_children[i] && scene->get_debug_camera()->is_in_frustum(scene->m_children[i]))
+		if (scene->m_children[i] && scene->m_children[i]->mesh && scene->get_debug_camera()->is_in_frustum(scene->m_children[i]))
 			render_debug_mesh(scene->m_children[i], shader, scene->get_camera());
 #endif _DEBUG
 	}

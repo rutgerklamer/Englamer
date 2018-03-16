@@ -54,6 +54,7 @@ include_directories(
 	${CMAKE_SOURCE_DIR}/external/glfw-3.0.3/include/GLFW
 	${CMAKE_SOURCE_DIR}/external/glew-1.9.0/include
 	${CMAKE_SOURCE_DIR}/external/glm-0.9.8.4
+	${CMAKE_SOURCE_DIR}/external/LuaBridge/Source/LuaBridge
 	${CMAKE_SOURCE_DIR}/.
 )
 
@@ -88,6 +89,7 @@ set(ENGLAMER_SOURCE
 	Englamer/Scene/Superscene.cpp
 	Englamer/Entities/Entity.cpp
 	Englamer/Entities/Mesh.cpp
+	Englamer/Entities/Component.cpp
 	Englamer/Utils/Resourcemanager.cpp
 	Englamer/Utils/Frustum.cpp
 	)
