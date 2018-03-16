@@ -13,6 +13,7 @@ class Superscene {
 		virtual ~Superscene();
 		void cleanup();
 		void add_child(Entity* entity);
+		void remove_child(Entity* entity);
 		Camera* get_camera();
 		virtual void update(float dt);
 		void update_children(float dt);

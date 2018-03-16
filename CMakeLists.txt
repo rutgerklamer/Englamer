@@ -83,15 +83,13 @@ set(ENGLAMER_SOURCE
 	Englamer/Core/Input.cpp
 	Englamer/Core/Renderer.cpp
 	Englamer/Core/Shader.cpp
+	Englamer/Core/Camera.cpp
 	Englamer/Scene/Scenemanager.cpp
 	Englamer/Scene/Superscene.cpp
 	Englamer/Entities/Entity.cpp
 	Englamer/Entities/Mesh.cpp
 	Englamer/Utils/Resourcemanager.cpp
-  )
-
-  set(MJS_SOURCE
-	
+	Englamer/Utils/Frustum.cpp
   )
 
 
@@ -106,7 +104,7 @@ IF(MAKE_DEMO)
 	Demo/Player.cpp
   )
 
-  add_executable(demo ${SOURCES} ${ENGLAMER_SOURCE} ${MJS_SOURCE})
+  add_executable(demo ${SOURCES} ${ENGLAMER_SOURCE})
 
  file(
   	COPY ${CMAKE_SOURCE_DIR}/Englamer/Data

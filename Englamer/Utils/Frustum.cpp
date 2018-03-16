@@ -127,4 +127,4 @@ bool Frustum::is_in_frustum(Entity* e)
 		planes[5].n.x*boxfarbottomleft.x + planes[5].n.y*boxfarbottomleft.y + planes[5].n.z*boxfarbottomleft.z + planes[5].D < 0 && planes[5].n.x*boxfarbottomright.x + planes[5].n.y*boxfarbottomright.y + planes[5].n.z*boxfarbottomright.z + planes[5].D < 0 &&
 		planes[5].n.x*boxfartopright.x + planes[5].n.y*boxfartopright.y + planes[5].n.z*boxfartopright.z + planes[5].D < 0 && planes[5].n.x*boxfartopleft.x + planes[5].n.y*boxfartopleft.y + planes[5].n.z*boxfartopleft.z + planes[5].D < 0)
 		return false;
-}
+}   

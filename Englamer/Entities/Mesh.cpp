@@ -4,6 +4,7 @@
 Mesh::Mesh()
 {
 	color = glm::vec3(1,1,1);
+	enabled = true;
 }
 
 Mesh::~Mesh()
@@ -147,4 +148,14 @@ void Mesh::calculate_bounding_box()
 		else if (m_mesh_data.vertices[i].z < m_mesh_data.min.z)
 			m_mesh_data.min.z = m_mesh_data.vertices[i].z;
 	}
+}
+
+bool Mesh::get_enabled()
+{
+	return enabled;
+}
+
+void Mesh::set_enabled(bool e)
+{
+	enabled = e;
 }

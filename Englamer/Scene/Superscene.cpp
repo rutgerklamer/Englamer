@@ -28,6 +28,16 @@ void Superscene::add_child(Entity* entity)
 	this->m_children.push_back(entity);
 }
 
+void Superscene::remove_child(Entity* entity)
+{
+	for (int i = 0; i < m_children.size(); i++)
+		if (m_children[i] == entity) {
+			m_children.erase(m_children.begin() + i);
+			return;
+		}
+
+}
+
 Camera* Superscene::get_camera()
 {
 	return this->m_camera;

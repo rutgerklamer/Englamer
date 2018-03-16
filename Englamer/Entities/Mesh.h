@@ -31,12 +31,15 @@ class Mesh {
 		void draw();
 		void bind();
 		void calculate_bounding_box();
+		bool get_enabled();
+		void set_enabled(bool e);
 		int get_buffer_size();
 		mesh_data m_mesh_data;
 	private:
 		glm::vec3 color;
 		int size;
 		GLuint VAO, VBO, EBO;
+		bool enabled;
 };
 
 #endif MESH_H

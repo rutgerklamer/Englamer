@@ -18,7 +18,14 @@ Scene1::~Scene1()
 
 void Scene1::update(float dt)
 {
-	get_debug_camera()->process_mouse_movement(10.0f, 0);
+	int objects_in_view = 0;
+	for (int i = 0; i < m_children.size(); i++)
+	{
+		if (get_camera()->is_in_frustum(m_children[i]))
+			objects_in_view++;
+	}
+	std::cout << "OBJECTS IN VIEW: " << objects_in_view << std::endl;
+	get_debug_camera()->process_mouse_movement(50.0f, 0);
 	if (Input::get_key(GLFW_KEY_D))
 		get_camera()->position += get_camera()->get_right() / 10.0f;
 	if (Input::get_key(GLFW_KEY_A))
