@@ -24,12 +24,16 @@ void Entity::add_component(Component* component)
 {
 	if (component->get_component_type() == MESH)
 		this->mesh = (Mesh*)component;
+	if (component->get_component_type() == TRANSFORM)
+		this->transform = (Transform*)component;
 }
 
 Component* Entity::get_component(component_type c)
 {
 	if (c == MESH)
 		return this->mesh;
+	if (c == TRANSFORM)
+		return this->transform;
 }
 
 void Entity::update(float dt)

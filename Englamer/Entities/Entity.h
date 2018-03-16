@@ -8,6 +8,7 @@
 #include <glm/gtx/quaternion.hpp>
 
 #include "Englamer/Entities/Mesh.h"
+#include "Englamer/Entities/Transform.h"
 
 class Entity
 {
@@ -23,5 +24,7 @@ class Entity
 		glm::vec3 scale;
 private:
 		Mesh* mesh;
+		Transform* transform;
+		int m_id;
 };
 #endif ENTITY_H
