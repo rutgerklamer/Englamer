@@ -9,6 +9,7 @@
 
 #include "Englamer/Entities/Mesh.h"
 #include "Englamer/Entities/Transform.h"
+#include "Englamer/Entities/Collider.h"
 
 class Entity
 {
@@ -22,6 +23,7 @@ class Entity
 private:
 		Mesh* mesh;
 		Transform* transform;
+		Collider* collider;
 		int m_id;
 };
 #endif ENTITY_H

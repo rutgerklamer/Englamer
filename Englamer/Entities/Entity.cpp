@@ -24,6 +24,8 @@ void Entity::add_component(Component* component)
 		this->mesh = (Mesh*)component;
 	if (component->get_component_type() == TRANSFORM)
 		this->transform = (Transform*)component;
+	if (component->get_component_type() == COLLIDER)
+		this->collider = (Collider*)component;
 }
 
 Component* Entity::get_component(component_type c)
@@ -32,6 +34,8 @@ Component* Entity::get_component(component_type c)
 		return this->mesh;
 	if (c == TRANSFORM)
 		return this->transform;
+	if (c == COLLIDER)
+		return this->collider;
 }
 
 void Entity::update(float dt)

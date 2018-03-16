@@ -2,7 +2,7 @@
 #define COMPONENT_H
 
 enum component_type {
-	UNDEFINED, MESH, TRANSFORM
+	UNDEFINED, MESH, TRANSFORM, COLLIDER
 };
 
 class Component
