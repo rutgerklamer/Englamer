@@ -90,7 +90,7 @@ Scene1::Scene1() : Superscene()
 	// This should be an entity
 	Player* p = new Player();
 	// Set it's position
-	p->position = glm::vec3 (5,5,5);
+	((Transform*)p->get_component(TRANSFORM))->scale = glm::vec3 (5,5,5);
 	// Add it to the scene
 	this->add-child(p);
 }
