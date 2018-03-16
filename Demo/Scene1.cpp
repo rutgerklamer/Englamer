@@ -5,8 +5,8 @@ Scene1::Scene1() : Superscene()
 	for (int i = 0; i < 100; i++)
 	{
 		Player* p = new Player();
-		p->position.x = sin(i) * i/3.0f;
-		p->position.z = cos(i) * i/3.0f;
+		((Transform*)p->get_component(TRANSFORM))->position.x = sin(i) * i;
+		((Transform*)p->get_component(TRANSFORM))->position.z = cos(i) * i ;
 		add_child(p);
 	}
 }

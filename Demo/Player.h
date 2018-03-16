@@ -8,6 +8,7 @@ class Player : public Entity {
 		Player();
 		~Player();
 		virtual void update(float dt);
+		virtual void collision(Entity* other_entity);
 	private:
 };
 
