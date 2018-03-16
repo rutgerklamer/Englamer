@@ -19,9 +19,6 @@ class Entity
 		void add_component(Component* component);
 		Component* get_component(component_type c);
 		glm::mat4 get_model_matrix();
-		glm::vec3 position;
-		glm::vec3 rotation;
-		glm::vec3 scale;
 private:
 		Mesh* mesh;
 		Transform* transform;
