@@ -6,7 +6,7 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtc/quaternion.hpp>
 #include <glm/gtx/quaternion.hpp>
-#include "Englamer/Entities/Component.h"
+#include "Englamer/Components/Component.h"
 
 class Transform : public Component {
 	public:

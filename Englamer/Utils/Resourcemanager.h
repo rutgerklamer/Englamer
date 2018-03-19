@@ -3,7 +3,7 @@
 
 #include <map>
 
-#include "Englamer/Entities/Mesh.h"
+#include "Englamer/Components/Mesh.h"
 
 class Resourcemanager {
 	public:

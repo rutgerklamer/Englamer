@@ -3,7 +3,7 @@
 
 #include <glm/glm.hpp>
 
-#include "Englamer/Entities/Component.h"
+#include "Englamer/Components/Component.h"
 
 class Collider : public Component {
 	public:

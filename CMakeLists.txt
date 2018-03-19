@@ -88,11 +88,11 @@ set(ENGLAMER_SOURCE
 	Englamer/Scene/Scenemanager.cpp
 	Englamer/Scene/Superscene.cpp
 	Englamer/Entities/Entity.cpp
-	Englamer/Entities/Mesh.cpp
-	Englamer/Entities/Component.cpp
-	Englamer/Entities/Transform.cpp
-	Englamer/Entities/Collider.cpp
-	Englamer/Entities/Light.cpp
+	Englamer/Components/Mesh.cpp
+	Englamer/Components/Component.cpp
+	Englamer/Components/Transform.cpp
+	Englamer/Components/Collider.cpp
+	Englamer/Components/Light.cpp
 	Englamer/Utils/Resourcemanager.cpp
 	Englamer/Utils/Frustum.cpp
 	Englamer/Maths/Intersect.cpp

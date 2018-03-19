@@ -2,7 +2,7 @@
 #define LIGHT_H
 
 #include <glm/glm.hpp>
-#include "Englamer/Entities/Component.h"
+#include "Englamer/Components/Component.h"
 
 typedef struct {
 	glm::vec3 position;

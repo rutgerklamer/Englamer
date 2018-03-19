@@ -7,7 +7,7 @@
 #include <vector>
 
 #include "Englamer/Core/Config.h"
-#include "Englamer/Entities/Component.h"
+#include "Englamer/Components/Component.h"
 
 typedef struct {
 	float x, y, z;

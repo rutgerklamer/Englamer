@@ -3,7 +3,7 @@
 
 #include <vector>
 
-#include "Englamer/Entities/Mesh.h"
+#include "Englamer/Components/Mesh.h"
 
 namespace objloader {
 	std::vector<vertex> load_model(const char* path)

@@ -1,10 +1,10 @@
 #ifndef ENTITY_H
 #define ENTITY_H
 
-#include "Englamer/Entities/Mesh.h"
-#include "Englamer/Entities/Transform.h"
-#include "Englamer/Entities/Collider.h"
-#include "Englamer/Entities/Light.h"
+#include "Englamer/Components/Mesh.h"
+#include "Englamer/Components/Transform.h"
+#include "Englamer/Components/Collider.h"
+#include "Englamer/Components/Light.h"
 
 class Entity
 {
