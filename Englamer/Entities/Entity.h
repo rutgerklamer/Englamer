@@ -4,6 +4,7 @@
 #include "Englamer/Entities/Mesh.h"
 #include "Englamer/Entities/Transform.h"
 #include "Englamer/Entities/Collider.h"
+#include "Englamer/Entities/Light.h"
 
 class Entity
 {
@@ -18,5 +19,6 @@ private:
 		Mesh* mesh;
 		Transform* transform;
 		Collider* collider;
+		Light* light;
 };
 #endif ENTITY_H

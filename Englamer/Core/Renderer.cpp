@@ -17,11 +17,16 @@ void Renderer::render_scene(Superscene* scene, Shader* shader)
 	for (int i = 0; i < scene->m_children.size(); i++) {
 		if (scene->m_children[i] && scene->m_children[i]->get_component(MESH) && scene->m_children[i]->get_component(MESH)->get_enabled() && scene->get_camera()->is_in_frustum(scene->m_children[i])) {
 			Entity* entity = scene->m_children[i];
-			glm::mat4 mvp = scene->get_camera()->get_projection_matrix() * scene->get_camera()->get_view_matrix() * ((Transform*)entity->get_component(TRANSFORM))->get_model_matrix();
-			glUniformMatrix4fv(glGetUniformLocation(shader->shaderProgram, "mvp"), 1, GL_FALSE, glm::value_ptr(mvp));
+			glUniformMatrix4fv(glGetUniformLocation(shader->shaderProgram, "model"), 1, GL_FALSE, glm::value_ptr(((Transform*)entity->get_component(TRANSFORM))->get_model_matrix()));
+			glUniformMatrix4fv(glGetUniformLocation(shader->shaderProgram, "view"), 1, GL_FALSE, glm::value_ptr(scene->get_camera()->get_view_matrix()));
+			glUniformMatrix4fv(glGetUniformLocation(shader->shaderProgram, "projection"), 1, GL_FALSE, glm::value_ptr(scene->get_camera()->get_projection_matrix()));
 			glUniform3f(glGetUniformLocation(shader->shaderProgram, "color"), ((Mesh*)entity->get_component(MESH))->get_color().x, ((Mesh*)entity->get_component(MESH))->get_color().y, ((Mesh*)entity->get_component(MESH))->get_color().z);
 			((Mesh*)entity->get_component(MESH))->draw();
 			glDrawArrays(GL_TRIANGLES, 0, ((Mesh*)entity->get_component(MESH))->get_buffer_size());
+#ifdef _DEBUG
+			glUniform3f(glGetUniformLocation(shader->shaderProgram, "color"), 1,0,0);
+			glDrawArrays(GL_LINE_STRIP, 0, ((Mesh*)entity->get_component(MESH))->get_buffer_size());
+#endif _DEBUG
 		}
 #ifdef _DEBUG
 		if (scene->m_children[i] && scene->m_children[i]->get_component(MESH) && scene->get_debug_camera()->is_in_frustum(scene->m_children[i]))
@@ -38,8 +43,9 @@ void Renderer::render_scene(Superscene* scene, Shader* shader)
 void Renderer::render_debug_mesh(Entity* entity, Shader* shader, Camera* camera)
 {
 	shader->Use();
-	glm::mat4 mvp = camera->get_projection_matrix() * camera->get_view_matrix() * ((Transform*)entity->get_component(TRANSFORM))->get_model_matrix();
-	glUniformMatrix4fv(glGetUniformLocation(shader->shaderProgram, "mvp"), 1, GL_FALSE, glm::value_ptr(mvp));
+	glUniformMatrix4fv(glGetUniformLocation(shader->shaderProgram, "model"), 1, GL_FALSE, glm::value_ptr(((Transform*)entity->get_component(TRANSFORM))->get_model_matrix()));
+	glUniformMatrix4fv(glGetUniformLocation(shader->shaderProgram, "view"), 1, GL_FALSE, glm::value_ptr(camera->get_view_matrix()));
+	glUniformMatrix4fv(glGetUniformLocation(shader->shaderProgram, "projection"), 1, GL_FALSE, glm::value_ptr(camera->get_projection_matrix()));	
 	glUniform3f(glGetUniformLocation(shader->shaderProgram, "color"), 1, 0, 0);
 	render_debug_set_boundaries(((Mesh*)entity->get_component(MESH))->m_mesh_data.min, ((Mesh*)entity->get_component(MESH))->m_mesh_data.max);
 	m_debug_mesh->bind();
@@ -56,8 +62,9 @@ void Renderer::render_debug_camera(Shader* shader, Camera* camera, Camera* rende
 		glm::mat4 m;
 		m = glm::translate(m, glm::vec3(positions[i].x, positions[i].y, positions[i].z));
 		m = glm::scale(m, glm::vec3(0.1f, 0.1f, 0.1f));
-		glm::mat4 mvp = render_camera->get_projection_matrix() * render_camera->get_view_matrix() * m;
-		glUniformMatrix4fv(glGetUniformLocation(shader->shaderProgram, "mvp"), 1, GL_FALSE, glm::value_ptr(mvp));
+		glUniformMatrix4fv(glGetUniformLocation(shader->shaderProgram, "model"), 1, GL_FALSE, glm::value_ptr(m));
+		glUniformMatrix4fv(glGetUniformLocation(shader->shaderProgram, "view"), 1, GL_FALSE, glm::value_ptr(camera->get_view_matrix()));
+		glUniformMatrix4fv(glGetUniformLocation(shader->shaderProgram, "projection"), 1, GL_FALSE, glm::value_ptr(camera->get_projection_matrix()));
 		glUniform3f(glGetUniformLocation(shader->shaderProgram, "color"), 0, 0, 1);
 		m_debug_mesh->draw();
 		glDrawArrays(GL_LINE_STRIP, 0, m_debug_mesh->get_buffer_size());

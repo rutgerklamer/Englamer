@@ -18,6 +18,8 @@ void Entity::add_component(Component* component)
 		this->transform = (Transform*)component;
 	if (component->get_component_type() == COLLIDER)
 		this->collider = (Collider*)component;
+	if (component->get_component_type() == LIGHT)
+		this->light = (Light*)component;
 }
 
 Component* Entity::get_component(component_type c)
@@ -28,6 +30,8 @@ Component* Entity::get_component(component_type c)
 		return this->transform;
 	else if (c == COLLIDER)
 		return this->collider;
+	else if (c == LIGHT)
+		return this->light;
 }
 
 void Entity::update(float dt)
