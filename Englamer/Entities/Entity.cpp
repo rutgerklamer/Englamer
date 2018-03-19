@@ -10,14 +10,6 @@ Entity::~Entity()
 
 }
 
-glm::mat4 Entity::get_model_matrix()
-{
-		glm::mat4 modelmatrix;
-		modelmatrix = glm::translate(modelmatrix, ((Transform*)this->get_component(TRANSFORM))->position);
-		modelmatrix = glm::scale(modelmatrix, ((Transform*)this->get_component(TRANSFORM))->scale);
-		return modelmatrix*glm::toMat4(glm::quat(((Transform*)this->get_component(TRANSFORM))->rotation));
-}
-
 void Entity::add_component(Component* component)
 {
 	if (component->get_component_type() == MESH)
@@ -32,9 +24,9 @@ Component* Entity::get_component(component_type c)
 {
 	if (c == MESH)
 		return this->mesh;
-	if (c == TRANSFORM)
+	else if (c == TRANSFORM)
 		return this->transform;
-	if (c == COLLIDER)
+	else if (c == COLLIDER)
 		return this->collider;
 }
 

@@ -12,3 +12,12 @@ Transform::~Transform()
 {
 
 }
+
+glm::mat4 Transform::get_model_matrix()
+{
+	glm::mat4 modelmatrix;
+	modelmatrix = glm::translate(modelmatrix, position);
+	modelmatrix = glm::scale(modelmatrix, scale);
+	return modelmatrix*glm::toMat4(glm::quat(rotation));
+}
+

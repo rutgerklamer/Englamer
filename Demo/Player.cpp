@@ -7,7 +7,7 @@ Player::Player() : Entity()
 	((Mesh*)this->get_component(MESH))->make_model("Assets/teapot.obj");
 	Transform* t = new Transform();
 	this->add_component(t);
-	Collider* c = new Collider();
+	Collider* c = new Collider(((Mesh*)this->get_component(MESH))->get_min(), ((Mesh*)this->get_component(MESH))->get_max());
 	this->add_component(c);
 }
 

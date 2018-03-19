@@ -33,6 +33,8 @@ class Mesh : public Component {
 		void bind();
 		void calculate_bounding_box();
 		int get_buffer_size();
+		glm::vec3 get_min();
+		glm::vec3 get_max();
 		mesh_data m_mesh_data;
 	private:
 		glm::vec3 color;

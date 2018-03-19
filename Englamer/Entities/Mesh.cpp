@@ -149,3 +149,13 @@ void Mesh::calculate_bounding_box()
 			m_mesh_data.min.z = m_mesh_data.vertices[i].z;
 	}
 }
+
+glm::vec3 Mesh::get_min()
+{
+	return m_mesh_data.min;
+}
+
+glm::vec3 Mesh::get_max()
+{
+	return m_mesh_data.max;
+}
