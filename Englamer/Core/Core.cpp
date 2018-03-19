@@ -2,7 +2,7 @@
 
 Core::Core()
 {
-	config::read_config("Data\\settings.ini");
+	config::read_config("Data/Settings/settings.ini");
 	m_display = new Display();
 }
 
