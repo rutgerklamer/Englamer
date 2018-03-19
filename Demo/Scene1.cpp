@@ -23,7 +23,9 @@ void Scene1::update(float dt)
 		if (get_camera()->is_in_frustum(m_children[i]))
 			objects_in_view++;
 	std::cout << "OBJECTS IN VIEW: " << objects_in_view << std::endl;
+#ifdef _DEBUG
 	get_debug_camera()->process_mouse_movement(50.0f, 0);
+#endif _DEBUG
 	if (Input::get_key(GLFW_KEY_D))
 		get_camera()->position += get_camera()->get_right() / 10.0f;
 	if (Input::get_key(GLFW_KEY_A))
