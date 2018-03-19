@@ -92,6 +92,7 @@ set(ENGLAMER_SOURCE
 	Englamer/Entities/Component.cpp
 	Englamer/Entities/Transform.cpp
 	Englamer/Entities/Collider.cpp
+	Englamer/Entities/Light.cpp
 	Englamer/Utils/Resourcemanager.cpp
 	Englamer/Utils/Frustum.cpp
 	Englamer/Maths/Intersect.cpp
