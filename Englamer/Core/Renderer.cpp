@@ -15,7 +15,7 @@ void Renderer::render_scene(Superscene* scene, Shader* shader)
 {
 	shader->Use();
 	for (int i = 0; i < scene->m_children.size(); i++) {
-		if (scene->m_children[i] && scene->m_children[i]->get_component(MESH) && scene->m_children[i]->get_component(MESH)->get_enabled() && scene->get_camera()->is_in_frustum(scene->m_children[i])) {
+		if (scene->m_children[i] != NULL && scene->m_children[i]->get_component(MESH) != NULL && scene->m_children[i]->get_component(MESH)->get_enabled() && scene->get_camera()->is_in_frustum(scene->m_children[i])) {
 			Entity* entity = scene->m_children[i];
 			glUniformMatrix4fv(glGetUniformLocation(shader->shaderProgram, "model"), 1, GL_FALSE, glm::value_ptr(((Transform*)entity->get_component(TRANSFORM))->get_model_matrix()));
 			glUniformMatrix4fv(glGetUniformLocation(shader->shaderProgram, "view"), 1, GL_FALSE, glm::value_ptr(scene->get_camera()->get_view_matrix()));
@@ -45,7 +45,7 @@ void Renderer::render_debug_mesh(Entity* entity, Shader* shader, Camera* camera)
 	shader->Use();
 	glUniformMatrix4fv(glGetUniformLocation(shader->shaderProgram, "model"), 1, GL_FALSE, glm::value_ptr(((Transform*)entity->get_component(TRANSFORM))->get_model_matrix()));
 	glUniformMatrix4fv(glGetUniformLocation(shader->shaderProgram, "view"), 1, GL_FALSE, glm::value_ptr(camera->get_view_matrix()));
-	glUniformMatrix4fv(glGetUniformLocation(shader->shaderProgram, "projection"), 1, GL_FALSE, glm::value_ptr(camera->get_projection_matrix()));	
+	glUniformMatrix4fv(glGetUniformLocation(shader->shaderProgram, "projection"), 1, GL_FALSE, glm::value_ptr(camera->get_projection_matrix()));
 	glUniform3f(glGetUniformLocation(shader->shaderProgram, "color"), 1, 0, 0);
 	render_debug_set_boundaries(((Mesh*)entity->get_component(MESH))->m_mesh_data.min, ((Mesh*)entity->get_component(MESH))->m_mesh_data.max);
 	m_debug_mesh->bind();
@@ -93,7 +93,7 @@ std::vector<glm::vec4> Renderer::render_debug_calculate_frustum_planes(Camera* c
 	glm::vec3 ntl = center - nearright + neartop; //far top left
 	glm::vec3 nbr = center + nearright - neartop; //far bottom right
 	glm::vec3 ntr = center + nearright + neartop; //far bottom right
-	glm::vec3 nbl = center - nearright - neartop; //far bottom right	
+	glm::vec3 nbl = center - nearright - neartop; //far bottom right
 
 	std::vector<glm::vec4> posa;
 	posa.push_back(glm::vec4(glm::normalize(ftl) * 10.0f + camera->position, 1));

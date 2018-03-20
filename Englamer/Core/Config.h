@@ -3,13 +3,12 @@
 
 #include <GL/glew.h>
 #include <glfw3.h>
+#include <glm/glm.hpp>
 #include <vector>
 #include <map>
 #include <fstream>
 #include <string>
 #include <algorithm>
-
-#include "Englamer/Maths/Vectorx.h"
 
 namespace config {
 	extern int width;
@@ -17,7 +16,7 @@ namespace config {
 	extern std::string window_name;
 	extern int major;
 	extern int minor;
-	extern vec4 clear_color;
+	extern glm::vec4 clear_color;
 	extern bool mouse_lock;
 
 	/**

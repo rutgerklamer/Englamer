@@ -35,11 +35,11 @@ void Frustum::calculate_frustum(glm::vec3 right, glm::vec3 up, glm::vec3 front, 
 	glm::vec3 ntr = nearcenter + nearright + neartop; //far bottom right
 	glm::vec3 nbl = nearcenter - nearright - neartop; //far bottom right
 	planes.clear();
-	// FAR 
+	// FAR
 	glm::vec3 v = ftr - ftl;
 	glm::vec3 u = fbr - ftl;
 	glm::vec3 n = glm::cross(v, u);
-	double D = -glm::dot(n, ftl);
+	float D = -glm::dot(n, ftl);
 	planes.push_back(Plane{ n, D });
 	// NEAR
 	v = ntr - ntl;
@@ -127,4 +127,5 @@ bool Frustum::is_in_frustum(Entity* e)
 		planes[5].n.x*boxfarbottomleft.x + planes[5].n.y*boxfarbottomleft.y + planes[5].n.z*boxfarbottomleft.z + planes[5].D < 0 && planes[5].n.x*boxfarbottomright.x + planes[5].n.y*boxfarbottomright.y + planes[5].n.z*boxfarbottomright.z + planes[5].D < 0 &&
 		planes[5].n.x*boxfartopright.x + planes[5].n.y*boxfartopright.y + planes[5].n.z*boxfartopright.z + planes[5].D < 0 && planes[5].n.x*boxfartopleft.x + planes[5].n.y*boxfartopleft.y + planes[5].n.z*boxfartopleft.z + planes[5].D < 0)
 		return false;
-}   
+	return true;
+}

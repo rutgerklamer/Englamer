@@ -7,7 +7,7 @@ namespace config
 	std::string window_name = "Englamer";
 	int major = 3;
 	int minor = 3;
-	vec4 clear_color = vec4(0.2f, 0.0f, 0.0f, 1.0f);
+	glm::vec4 clear_color = glm::vec4(0.2f, 0.0f, 0.0f, 1.0f);
 	bool mouse_lock = false;
 }
 
@@ -16,7 +16,7 @@ bool config::read_config(char* filepath)
 	std::ifstream ip(filepath);
 	std::string ini_file;
 	std::string line;
-	while (std::getline(ip, line)) 
+	while (std::getline(ip, line))
 			ini_file += line + "\n";
 
 	std::map<std::string, std::string> settings;
@@ -60,11 +60,9 @@ bool config::read_config(char* filepath)
 	}
 
 	float a[4];
-	for (int i = 0; i < result.size(); i++) 
+	for (int i = 0; i < result.size(); i++)
 		a[i] = stof(result[i]);
-	config::clear_color = vec4(a[0], a[1], a[2], a[3]);
+	config::clear_color = glm::vec4(a[0], a[1], a[2], a[3]);
 
 	return true;
 }
-
-

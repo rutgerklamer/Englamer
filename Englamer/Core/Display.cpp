@@ -7,7 +7,7 @@ Display::Display()
 	create_context();
 }
 
-Display::~Display() 
+Display::~Display()
 {
 
 }
@@ -37,7 +37,7 @@ void Display::create_context()
 		glewExperimental = GL_TRUE;
 
 		//Initialize GLEW
-		if (glewInit() != GLEW_OK) 
+		if (glewInit() != GLEW_OK)
 			std::cout << "Failed to initialize GLEW" << std::endl;
 
 		//Enable depth testing
@@ -58,7 +58,7 @@ void Display::update()
 	// Clear the window and the depth buffer so the window is empty when we try to render to it
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	// We declared the color information in the config header, we can't acces it directly so we use a vec4 color
-	vec4 color = config::clear_color;
+	glm::vec4 color = config::clear_color;
 	// Set the clear color
 	glClearColor(color.x, color.y, color.z, color.w);
 }

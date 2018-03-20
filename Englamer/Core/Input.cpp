@@ -1,4 +1,4 @@
-#include "Englamer\Core\Input.h"
+#include "Englamer/Core/Input.h"
 
 Input Input::input;
 

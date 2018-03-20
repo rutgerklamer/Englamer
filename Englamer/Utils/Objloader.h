@@ -2,6 +2,9 @@
 #define OBJLOADER_H
 
 #include <vector>
+#ifdef _DEBUG
+#include <iostream>
+#endif _DEBUG
 
 #include "Englamer/Components/Mesh.h"
 
@@ -19,14 +22,16 @@ namespace objloader {
 
 		FILE* file = fopen(path, "r");
 		if (file == NULL){
+#ifdef _DEBUG
 			std::cout << "failed to open: " << path << std::endl;
+#endif _DEBUG
 			fclose(file);
 		}
 
 		while (1){
 			char lineHeader[256];
 			int res = fscanf(file, "%s", lineHeader);
-			if (res == EOF) 
+			if (res == EOF)
 				break;
 			if (strcmp(lineHeader, "v") == 0){
 				glm::vec3 vertex;

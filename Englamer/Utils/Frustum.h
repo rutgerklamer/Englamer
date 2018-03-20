@@ -2,6 +2,7 @@
 #define FRUSTUM_H
 
 #include <glm/glm.hpp>
+#include <iostream>
 
 #include "Englamer/Core/Config.h"
 #include "Englamer/Entities/Entity.h"

@@ -1,8 +1,10 @@
 #ifndef CORE_H
 #define CORE_H
 
+#include <iostream>
+
 #include "Englamer/Core/Config.h"
-#include "Englamer/Core/Display.h" 
+#include "Englamer/Core/Display.h"
 #include "Englamer/Core/Camera.h"
 #include "Englamer/Scene/Scenemanager.h"
 #include "Englamer/Core/Input.h"
