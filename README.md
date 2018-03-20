@@ -8,7 +8,9 @@ Building
 
 On Debian-based Linux, install the following libraries:
 
-	sudo apt-get install -y git cmake doxygen g++ libgl1-mesa-dev libglu1-mesa-dev libxrandr-dev libxi-dev
+	sudo apt-get install -y git cmake doxygen clang libgl1-mesa-dev libglu1-mesa-dev libxrandr-dev libxi-dev
+
+We used g++ but now we use clang++, We do this because the latest g++ version can't compile the glm library correctly
 
 On Windows and MacOS:
 	Install make and cmake, and make sure you have atleast the C++11 compiler installed.
