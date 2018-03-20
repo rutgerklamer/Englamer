@@ -3,6 +3,7 @@
 Component::Component()
 {
 	this->m_component_type = UNDEFINED;
+	this->enabled = true;
 }
 
 Component::~Component()
