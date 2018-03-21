@@ -2,13 +2,14 @@
 #define TEXTURELOADER_H
 
 #include "Englamer/Components/Mesh.h"
+#include <SOIL2.h>
 
 namespace textureloader {
   uint load_texture(const char* path)
   {
     //Make a texture
    uint textureID;
-/*
+
    int textureWidth, textureHeight;
 
    glGenTextures(1, &textureID);
@@ -33,7 +34,7 @@ namespace textureloader {
    //Delete image since it's already made and stored in textureID
    SOIL_free_image_data(image);
    //Bind default texture
-   glBindTexture(GL_TEXTURE_2D, 0);*/
+   glBindTexture(GL_TEXTURE_2D, 0);
 
    return textureID;
   }

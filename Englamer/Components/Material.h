@@ -12,6 +12,7 @@ class Material : public Component {
 		~Material();
 		glm::vec3 get_color();
 		void set_color(glm::vec3 c);
+		uint get_texture();
 		void load_texture(const char* file);
 	private:
 		glm::vec3 color;

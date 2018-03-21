@@ -11,6 +11,7 @@ Player::Player() : Entity()
 	this->add_component(c);
 	Material* ma = new Material();
 	ma->set_color(glm::vec3(0,0,1));
+	ma->load_texture("Assets/brick.png");
 	this->add_component(ma);
 }
 

@@ -56,6 +56,7 @@ include_directories(
 	${CMAKE_SOURCE_DIR}/external/glfw-3.0.3/include/GLFW
 	${CMAKE_SOURCE_DIR}/external/glew-1.9.0/include
 	${CMAKE_SOURCE_DIR}/external/glm-0.9.8.4
+  ${CMAKE_SOURCE_DIR}/external/SOIL2/
 	${CMAKE_SOURCE_DIR}/.
 )
 
@@ -70,12 +71,22 @@ set(ALL_GRAPHICS_LIBS
 	GLEW_190
 )
 
+include_directories(
+)
+
 add_definitions(
 	-DTW_STATIC
 	-DTW_NO_LIB_PRAGMA
 	-DTW_NO_DIRECT3D
 	-DGLEW_STATIC
 	-D_CRT_SECURE_NO_WARNINGS
+  )
+
+set(SOIL2_SOURCE
+  external/SOIL2/etc1_utils.c
+  external/SOIL2/image_DXT.c
+  external/SOIL2/image_helper.c
+  external/SOIL2/SOIL2.c
 )
 
 set(ENGLAMER_SOURCE
@@ -110,7 +121,8 @@ IF(MAKE_DEMO)
 	  Demo/Player.cpp
   )
   add_definitions(-D_DEBUG)
-  add_executable(demo ${SOURCES} ${ENGLAMER_SOURCE})
+  add_executable(demo ${SOURCES} ${ENGLAMER_SOURCE} ${SOIL2_SOURCE})
+
 
  file(
   	COPY ${CMAKE_SOURCE_DIR}/Englamer/Data

@@ -24,5 +24,10 @@ glm::vec3 Material::get_color()
 
 void Material::load_texture(const char* file)
 {
-	Resourcemanager::get_texture(file);
+	texture_id = Resourcemanager::get_texture(file);
+}
+
+uint Material::get_texture()
+{
+	return texture_id;
 }
