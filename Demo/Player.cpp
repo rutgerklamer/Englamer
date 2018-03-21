@@ -9,6 +9,9 @@ Player::Player() : Entity()
 	this->add_component(t);
 	Collider* c = new Collider(((Mesh*)this->get_component(MESH))->get_min(), ((Mesh*)this->get_component(MESH))->get_max());
 	this->add_component(c);
+	Material* ma = new Material();
+	ma->set_color(glm::vec3(0,0,1));
+	this->add_component(ma);
 }
 
 Player::~Player()

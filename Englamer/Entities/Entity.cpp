@@ -2,7 +2,11 @@
 
 Entity::Entity()
 {
-
+	mesh = NULL;
+	transform = NULL;
+	collider = NULL;
+	light = NULL;
+	material = NULL;
 }
 
 Entity::~Entity()
@@ -20,6 +24,8 @@ void Entity::add_component(Component* component)
 		this->collider = (Collider*)component;
 	if (component->get_component_type() == LIGHT)
 		this->light = (Light*)component;
+	if (component->get_component_type() == MATERIAL)
+		this->material = (Material*)component;
 }
 
 Component* Entity::get_component(component_type c)
@@ -32,6 +38,8 @@ Component* Entity::get_component(component_type c)
 		return this->collider;
 	else if (c == LIGHT)
 		return this->light;
+	else if (c == MATERIAL)
+		return this->material;
 }
 
 void Entity::update(float dt)

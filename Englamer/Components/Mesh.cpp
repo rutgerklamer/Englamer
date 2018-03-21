@@ -3,18 +3,12 @@
 
 Mesh::Mesh() : Component()
 {
-	color = glm::vec3(1,1,1);
 	this->set_component_type(MESH);
 }
 
 Mesh::~Mesh()
 {
 
-}
-
-glm::vec3 Mesh::get_color()
-{
-	return this->color;
 }
 
 int Mesh::get_buffer_size()

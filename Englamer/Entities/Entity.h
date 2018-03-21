@@ -5,6 +5,7 @@
 #include "Englamer/Components/Transform.h"
 #include "Englamer/Components/Collider.h"
 #include "Englamer/Components/Light.h"
+#include "Englamer/Components/Material.h"
 
 class Entity
 {
@@ -20,5 +21,6 @@ private:
 		Transform* transform;
 		Collider* collider;
 		Light* light;
+		Material* material;
 };
 #endif ENTITY_H

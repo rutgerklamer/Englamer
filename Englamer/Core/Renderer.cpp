@@ -20,7 +20,10 @@ void Renderer::render_scene(Superscene* scene, Shader* shader)
 			glUniformMatrix4fv(glGetUniformLocation(shader->shaderProgram, "model"), 1, GL_FALSE, glm::value_ptr(((Transform*)entity->get_component(TRANSFORM))->get_model_matrix()));
 			glUniformMatrix4fv(glGetUniformLocation(shader->shaderProgram, "view"), 1, GL_FALSE, glm::value_ptr(scene->get_camera()->get_view_matrix()));
 			glUniformMatrix4fv(glGetUniformLocation(shader->shaderProgram, "projection"), 1, GL_FALSE, glm::value_ptr(scene->get_camera()->get_projection_matrix()));
-			glUniform3f(glGetUniformLocation(shader->shaderProgram, "color"), ((Mesh*)entity->get_component(MESH))->get_color().x, ((Mesh*)entity->get_component(MESH))->get_color().y, ((Mesh*)entity->get_component(MESH))->get_color().z);
+			if (entity->get_component(MATERIAL) != NULL)
+				glUniform3f(glGetUniformLocation(shader->shaderProgram, "color"), ((Material*)entity->get_component(MATERIAL))->get_color().x, ((Material*)entity->get_component(MATERIAL))->get_color().y, ((Material*)entity->get_component(MATERIAL))->get_color().z);
+			else
+				glUniform3f(glGetUniformLocation(shader->shaderProgram, "color"), 0,0,0);
 			((Mesh*)entity->get_component(MESH))->draw();
 			glDrawArrays(GL_TRIANGLES, 0, ((Mesh*)entity->get_component(MESH))->get_buffer_size());
 #ifdef _DEBUG

@@ -2,6 +2,7 @@
 
 Light::Light() : Component()
 {
+	set_component_type(LIGHT);
 	m_light_data.position = glm::vec3(0, 0, 0);
 	m_light_data.light_color = glm::vec3(1,1,1);
 	m_light_data.specular_strength = 1.0f;

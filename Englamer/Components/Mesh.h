@@ -25,7 +25,6 @@ class Mesh : public Component {
 	public:
 		Mesh();
 		~Mesh();
-		glm::vec3 get_color();
 		void make_quad();
 		void make_box();
 		void make_model(const char* file);
@@ -37,7 +36,6 @@ class Mesh : public Component {
 		glm::vec3 get_max();
 		mesh_data m_mesh_data;
 	private:
-		glm::vec3 color;
 		int size;
 		GLuint VAO, VBO, EBO;
 };
