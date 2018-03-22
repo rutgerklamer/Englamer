@@ -21,7 +21,7 @@ Player::~Player()
 
 void Player::update(float dt)
 {
-
+	//((Transform*)this->get_component(TRANSFORM))->rotation.y += 0.04;
 }
 
 void Player::collision(Entity* other_entity)

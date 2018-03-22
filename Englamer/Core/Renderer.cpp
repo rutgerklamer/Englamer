@@ -40,7 +40,7 @@ void Renderer::render_scene(Superscene* scene, Shader* shader)
 #endif _DEBUG
 		}
 #ifdef _DEBUG
-		if (scene->m_children[i] && scene->m_children[i]->get_component(MESH) && scene->get_debug_camera()->is_in_frustum(scene->m_children[i]))
+	//	if (scene->m_children[i] && scene->m_children[i]->get_component(MESH) && scene->get_debug_camera()->is_in_frustum(scene->m_children[i]))
 			render_debug_mesh(scene->m_children[i], shader, scene->get_camera());
 #endif _DEBUG
 	}

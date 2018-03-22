@@ -2,7 +2,7 @@
 
 Scene1::Scene1() : Superscene()
 {
-	for (int i = 0; i < 100; i++)
+	for (int i = 0; i < 1; i++)
 	{
 		Player* p = new Player();
 		((Transform*)p->get_component(TRANSFORM))->position.x = sin(i) * i;
@@ -26,7 +26,7 @@ void Scene1::update(float dt)
 		}
 	std::cout << "OBJECTS IN VIEW: " << objects_in_view << std::endl;
 #ifdef _DEBUG
-	get_debug_camera()->process_mouse_movement(50.0f, 0);
+	get_debug_camera()->process_mouse_movement(5.0f, 0);
 #endif _DEBUG
 	if (Input::get_key(GLFW_KEY_D))
 		get_camera()->position += get_camera()->get_right() / 10.0f;
