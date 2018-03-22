@@ -57,7 +57,7 @@ void Frustum::calculate_frustum(glm::vec3 right, glm::vec3 up, glm::vec3 front, 
 	v = fbr - fbl;
 	u = nbr - fbl;
 	n = glm::cross(v, u);
-	D = -glm::dot(n, fbl);
+	D = -glm::dot(n, fbl) * 0.96f;
 	planes.push_back(Plane{ n, D });
 	// RIGHT
 	v = fbr - nbr;
@@ -107,12 +107,12 @@ bool Frustum::is_in_frustum(Entity* e)
 		planes[2].n.x*boxfartopright.x + planes[2].n.y*boxfartopright.y + planes[2].n.z*boxfartopright.z + planes[2].D < 0 && planes[2].n.x*boxfartopleft.x + planes[2].n.y*boxfartopleft.y + planes[2].n.z*boxfartopleft.z + planes[2].D < 0)
 		return false;
 
-	/*// BOTTOM
+	// BOTTOM
 	if (planes[3].n.x*boxnearbottomleft.x + planes[3].n.y*boxnearbottomleft.y + planes[3].n.z*boxnearbottomleft.z + planes[3].D > 0 && planes[3].n.x*boxnearbottomright.x + planes[3].n.y*boxnearbottomright.y + planes[3].n.z*boxnearbottomright.z + planes[3].D > 0 &&
 		planes[3].n.x*boxneartopright.x + planes[3].n.y*boxneartopright.y + planes[3].n.z*boxneartopright.z + planes[3].D > 0 && planes[3].n.x*boxneartopleft.x + planes[3].n.y*boxneartopleft.y + planes[3].n.z*boxneartopleft.z + planes[3].D > 0 &&
 		planes[3].n.x*boxfarbottomleft.x + planes[3].n.y*boxfarbottomleft.y + planes[3].n.z*boxfarbottomleft.z + planes[3].D > 0 && planes[3].n.x*boxfarbottomright.x + planes[3].n.y*boxfarbottomright.y + planes[3].n.z*boxfarbottomright.z + planes[3].D > 0 &&
 		planes[3].n.x*boxfartopright.x + planes[3].n.y*boxfartopright.y + planes[3].n.z*boxfartopright.z + planes[3].D > 0 && planes[3].n.x*boxfartopleft.x + planes[3].n.y*boxfartopleft.y + planes[3].n.z*boxfartopleft.z + planes[3].D > 0)
-		return false; */
+		return false;
 
 	// RIGHT
 	if (planes[4].n.x*boxnearbottomleft.x + planes[4].n.y*boxnearbottomleft.y + planes[4].n.z*boxnearbottomleft.z + planes[4].D > 0 && planes[4].n.x*boxnearbottomright.x + planes[4].n.y*boxnearbottomright.y + planes[4].n.z*boxnearbottomright.z + planes[4].D > 0 &&
