@@ -1,6 +1,8 @@
 #ifndef RENDERER_H
 #define RENDERER_H
 
+#include <string>
+
 #include "Englamer/Core/Config.h"
 #include "Englamer/Scene/Superscene.h"
 #include "Englamer/Core/Shader.h"

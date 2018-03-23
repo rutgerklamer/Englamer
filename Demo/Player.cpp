@@ -13,6 +13,10 @@ Player::Player() : Entity()
 	ma->set_color(glm::vec3(0,0,1));
 	ma->load_texture("Assets/brick.png");
 	this->add_component(ma);
+
+	Light* l = new Light();
+	l->set_light_color(glm::vec3(rand()%2, rand()%2, rand()%2));
+	this->add_component(l);
 }
 
 Player::~Player()
@@ -21,7 +25,7 @@ Player::~Player()
 
 void Player::update(float dt)
 {
-	//((Transform*)this->get_component(TRANSFORM))->rotation.y += 0.04;
+	((Transform*)this->get_component(TRANSFORM))->rotation.y += 0.004;
 }
 
 void Player::collision(Entity* other_entity)

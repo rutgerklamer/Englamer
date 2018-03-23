@@ -24,6 +24,7 @@ class Superscene {
 #endif _DEBUG
 		// TODO make private
 		std::vector<Entity*> m_children;
+		std::vector<Entity*> m_lights;
 	private:
 		Camera*				 m_camera;
 #ifdef _DEBUG

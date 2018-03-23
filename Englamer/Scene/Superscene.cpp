@@ -26,6 +26,8 @@ void Superscene::cleanup()
 void Superscene::add_child(Entity* entity)
 {
 	this->m_children.push_back(entity);
+	if (entity->get_component(LIGHT) != NULL)
+		this->m_lights.push_back(entity);
 }
 
 void Superscene::remove_child(Entity* entity)
