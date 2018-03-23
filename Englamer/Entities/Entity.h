@@ -13,6 +13,7 @@ class Entity
 		Entity();
 		~Entity();
 		virtual void update(float dt);
+		void engine_update(float dt);
 		virtual void collision(Entity* other_entity);
 		void add_component(Component* component);
 		Component* get_component(component_type c);

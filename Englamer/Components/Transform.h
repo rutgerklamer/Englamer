@@ -13,6 +13,8 @@ class Transform : public Component {
 		Transform();
 		~Transform();
 		glm::mat4 get_model_matrix();
+		glm::mat4 get_rotation_matrix();
+		glm::mat4 get_position_matrix();
 		glm::vec3 position;
 		glm::vec3 scale;
 		glm::vec3 rotation;

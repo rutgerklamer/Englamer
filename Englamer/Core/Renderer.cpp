@@ -61,11 +61,14 @@ void Renderer::render_scene(Superscene* scene, Shader* shader)
 void Renderer::render_debug_mesh(Entity* entity, Shader* shader, Camera* camera)
 {
 	shader->Use();
-	glUniformMatrix4fv(glGetUniformLocation(shader->shaderProgram, "model"), 1, GL_FALSE, glm::value_ptr(((Transform*)entity->get_component(TRANSFORM))->get_model_matrix()));
+	glUniformMatrix4fv(glGetUniformLocation(shader->shaderProgram, "model"), 1, GL_FALSE, glm::value_ptr(((Transform*)entity->get_component(TRANSFORM))->get_position_matrix()));
 	glUniformMatrix4fv(glGetUniformLocation(shader->shaderProgram, "view"), 1, GL_FALSE, glm::value_ptr(camera->get_view_matrix()));
 	glUniformMatrix4fv(glGetUniformLocation(shader->shaderProgram, "projection"), 1, GL_FALSE, glm::value_ptr(camera->get_projection_matrix()));
 	glUniform3f(glGetUniformLocation(shader->shaderProgram, "color"), 1, 0, 0);
-	render_debug_set_boundaries(((Mesh*)entity->get_component(MESH))->m_mesh_data.min, ((Mesh*)entity->get_component(MESH))->m_mesh_data.max);
+	if (entity->get_component(COLLIDER) != NULL)
+		render_debug_set_boundaries(((Collider*)entity->get_component(COLLIDER))->get_obb_min(), ((Collider*)entity->get_component(COLLIDER))->get_obb_max());
+	else
+		render_debug_set_boundaries(((Mesh*)entity->get_component(MESH))->m_mesh_data.min, ((Mesh*)entity->get_component(MESH))->m_mesh_data.max);
 	m_debug_mesh->bind();
 	m_debug_mesh->draw();
 	glDrawArrays(GL_LINE_LOOP, 0, m_debug_mesh->get_buffer_size());
@@ -128,7 +131,6 @@ std::vector<glm::vec4> Renderer::render_debug_calculate_frustum_planes(Camera* c
 
 void Renderer::render_debug_set_boundaries(glm::vec3 min, glm::vec3 max)
 {
-
 	for (int i = 0; i < m_debug_mesh->m_mesh_data.vertices.size(); i++) {
 		if (m_debug_mesh->m_mesh_data.vertices[i].x < 0)
 			m_debug_mesh->m_mesh_data.vertices[i].x = min.x - 0.1f;
