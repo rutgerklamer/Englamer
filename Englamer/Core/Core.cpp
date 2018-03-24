@@ -26,12 +26,13 @@ void Core::init()
 void Core::run()
 {
 	do {
-		m_scenemanager.get_scene()->update(1.0f);
-		m_scenemanager.get_scene()->update_children(1.0f);
+		time.update();
+		m_scenemanager.get_scene()->update(time.get_deltatime());
+		m_scenemanager.get_scene()->update_children(time.get_deltatime());
 		m_display->update();
 		renderer->render_scene(m_scenemanager.get_scene(), shader);
 #ifdef _DEBUG
-		m_scenemanager.get_scene()->debug_update(1.0f);
+		m_scenemanager.get_scene()->debug_update(time.get_deltatime());
 #endif _DEBUG
 		m_display->late_update();
 	} while (!glfwWindowShouldClose(Display::m_window));

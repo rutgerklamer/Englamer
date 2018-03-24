@@ -10,22 +10,22 @@ Player::Player() : Entity()
 	Collider* c = new Collider();
 	this->add_component(c);
 	Material* ma = new Material();
-	ma->set_color(glm::vec3(0,0,1));
-	ma->load_texture("Assets/brick.png");
+	ma->set_color(glm::vec3(1,0.5,0.7));
+	//ma->load_texture("Assets/brick.png");
 	this->add_component(ma);
-
-	Light* l = new Light();
-	l->set_light_color(glm::vec3(rand()%2, rand()%2, rand()%2));
-	this->add_component(l);
 }
 
 Player::~Player()
 {
+	delete this->get_component(MESH);
+	delete this->get_component(MATERIAL);
+	delete this->get_component(TRANSFORM);
+	//delete this->get_component(COLLIDER);
+	//delete this->get_component(LIGHT);
 }
 
 void Player::update(float dt)
 {
-	((Transform*)this->get_component(TRANSFORM))->rotation.y += 0.04;
 }
 
 void Player::collision(Entity* other_entity)

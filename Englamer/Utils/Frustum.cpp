@@ -79,9 +79,11 @@ bool Frustum::is_in_frustum(Entity* e)
 	if (e->get_component(COLLIDER) != NULL) {
 		min = ((Collider*)e->get_component(COLLIDER))->get_obb_min();
 		max = ((Collider*)e->get_component(COLLIDER))->get_obb_max();
-	} else {
+	} else  if (e->get_component(MESH) != NULL) {
 		min = ((Mesh*)e->get_component(MESH))->get_min();
 		max = ((Mesh*)e->get_component(MESH))->get_max();
+	} else {
+		return true;
 	}
 	glm::vec3 pos = ((Transform*)e->get_component(TRANSFORM))->position;
 	glm::vec3 boxnearbottomleft = min + pos;

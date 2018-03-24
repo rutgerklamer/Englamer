@@ -61,13 +61,13 @@ Camera* Superscene::get_debug_camera()
 void Superscene::debug_update(float dt)
 {
 	if (Input::get_key(GLFW_KEY_RIGHT))
-		get_debug_camera()->position += get_debug_camera()->get_right() / 100.0f;
+		get_debug_camera()->position += get_debug_camera()->get_right()  * dt * 30.0f;
 	if (Input::get_key(GLFW_KEY_LEFT))
-		get_debug_camera()->position -= get_debug_camera()->get_right() / 100.0f;
+		get_debug_camera()->position -= get_debug_camera()->get_right()  * dt * 30.0f;
 	if (Input::get_key(GLFW_KEY_UP))
-		get_debug_camera()->position += get_debug_camera()->get_front() / 100.0f;
+		get_debug_camera()->position += get_debug_camera()->get_front()  * dt * 30.0f;
 	if (Input::get_key(GLFW_KEY_DOWN))
-		get_debug_camera()->position -= get_debug_camera()->get_front() / 100.0f;
+		get_debug_camera()->position -= get_debug_camera()->get_front()  * dt * 30.0f;
 	if (Input::get_key(GLFW_KEY_I))
 		get_debug_camera()->process_mouse_movement(0, 1);
 	if (Input::get_key(GLFW_KEY_K))

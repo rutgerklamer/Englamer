@@ -10,6 +10,7 @@
 #include "Englamer/Core/Input.h"
 #include "Englamer/Core/Shader.h"
 #include "Englamer/Core/Renderer.h"
+#include "Englamer/Utils/Time.h"
 
 class Core {
 	public:
@@ -39,5 +40,6 @@ class Core {
 		Scenemanager m_scenemanager;
 		Shader* shader;
 		Renderer* renderer;
+		Time time;
 };
 #endif CORE_H

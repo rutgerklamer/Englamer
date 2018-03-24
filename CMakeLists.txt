@@ -108,6 +108,7 @@ set(ENGLAMER_SOURCE
     Englamer/Components/Material.cpp
 	  Englamer/Utils/Resourcemanager.cpp
 	  Englamer/Utils/Frustum.cpp
+    Englamer/Utils/Time.cpp
 	  Englamer/Maths/Intersect.cpp
 	)
 
@@ -119,6 +120,7 @@ IF(MAKE_DEMO)
     Demo/main.cpp
 	  Demo/Scene1.cpp
 	  Demo/Player.cpp
+    Demo/SceneLight.cpp
   )
   add_definitions(-D_DEBUG)
   add_executable(demo ${SOURCES} ${ENGLAMER_SOURCE} ${SOIL2_SOURCE})

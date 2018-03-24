@@ -4,6 +4,7 @@
 #include "Englamer/Scene/Superscene.h"
 
 #include "Demo/Player.h"
+#include "Demo/SceneLight.h"
 
 class Scene1 : public Superscene {
 	public:
@@ -11,6 +12,7 @@ class Scene1 : public Superscene {
 		~Scene1();
 		virtual void update(float dt);
 	private:
+		SceneLight* sl;
 };
 
 #endif SCENE1_H

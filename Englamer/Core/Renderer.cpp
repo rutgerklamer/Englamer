@@ -26,7 +26,13 @@ void Renderer::render_scene(Superscene* scene, Shader* shader)
 				glUniform3f(glGetUniformLocation(shader->shaderProgram, ("lights[" + std::to_string(l) + "].color").c_str()), ((Light*)scene->m_lights[l]->get_component(LIGHT))->get_light_color().x, ((Light*)scene->m_lights[l]->get_component(LIGHT))->get_light_color().y, ((Light*)scene->m_lights[l]->get_component(LIGHT))->get_light_color().z);
 				glUniform3f(glGetUniformLocation(shader->shaderProgram, ("lights[" + std::to_string(l) + "].position").c_str()), ((Transform*)scene->m_lights[l]->get_component(TRANSFORM))->position.x, ((Transform*)scene->m_lights[l]->get_component(TRANSFORM))->position.y, ((Transform*)scene->m_lights[l]->get_component(TRANSFORM))->position.z);
 				glUniform1f(glGetUniformLocation(shader->shaderProgram, ("lights[" + std::to_string(l) + "].specular_strength").c_str()), ((Light*)scene->m_lights[l]->get_component(LIGHT))->get_specular_light_strength());
+				glUniform1f(glGetUniformLocation(shader->shaderProgram, ("lights[" + std::to_string(l) + "].intensity").c_str()), ((Light*)scene->m_lights[l]->get_component(LIGHT))->get_intensity());
 			}
+			if (entity->get_component(MATERIAL) != NULL)
+			glUniform3f(glGetUniformLocation(shader->shaderProgram, ("material.ambient")), ((Material*)entity->get_component(MATERIAL))->get_ambient().x, ((Material*)entity->get_component(MATERIAL))->get_ambient().y, ((Material*)entity->get_component(MATERIAL))->get_ambient().z);
+			glUniform3f(glGetUniformLocation(shader->shaderProgram, ("material.diffuse")), ((Material*)entity->get_component(MATERIAL))->get_diffuse().x, ((Material*)entity->get_component(MATERIAL))->get_diffuse().y, ((Material*)entity->get_component(MATERIAL))->get_diffuse().z);
+			glUniform3f(glGetUniformLocation(shader->shaderProgram, ("material.specular")), ((Material*)entity->get_component(MATERIAL))->get_specular().x, ((Material*)entity->get_component(MATERIAL))->get_specular().y, ((Material*)entity->get_component(MATERIAL))->get_specular().z);
+			glUniform1f(glGetUniformLocation(shader->shaderProgram, ("material.shininess")), ((Material*)entity->get_component(MATERIAL))->get_shininess());
 			if (entity->get_component(MATERIAL) != NULL) {
 				if (((Material*)entity->get_component(MATERIAL))->get_texture() != 0) {
 					glActiveTexture(GL_TEXTURE0);
@@ -41,19 +47,15 @@ void Renderer::render_scene(Superscene* scene, Shader* shader)
 			}
 			((Mesh*)entity->get_component(MESH))->draw();
 			glDrawArrays(GL_TRIANGLES, 0, ((Mesh*)entity->get_component(MESH))->get_buffer_size());
-#ifdef _DEBUG
-			glUniform3f(glGetUniformLocation(shader->shaderProgram, "color"), 1,0,0);
-			glDrawArrays(GL_LINE_STRIP, 0, ((Mesh*)entity->get_component(MESH))->get_buffer_size());
-#endif _DEBUG
 		}
 #ifdef _DEBUG
-	//	if (scene->m_children[i] && scene->m_children[i]->get_component(MESH) && scene->get_debug_camera()->is_in_frustum(scene->m_children[i]))
+		if (scene->m_children[i] && scene->m_children[i]->get_component(MESH) && scene->get_debug_camera()->is_in_frustum(scene->m_children[i]))
 			render_debug_mesh(scene->m_children[i], shader, scene->get_camera());
 #endif _DEBUG
 	}
 #ifdef _DEBUG
-	render_debug_camera(shader, scene->get_camera(), scene->get_camera());
-	render_debug_camera(shader, scene->get_debug_camera(), scene->get_camera());
+//	render_debug_camera(shader, scene->get_camera(), scene->get_camera());
+//	render_debug_camera(shader, scene->get_debug_camera(), scene->get_camera());
 #endif _DEBUG
 }
 
@@ -133,17 +135,17 @@ void Renderer::render_debug_set_boundaries(glm::vec3 min, glm::vec3 max)
 {
 	for (int i = 0; i < m_debug_mesh->m_mesh_data.vertices.size(); i++) {
 		if (m_debug_mesh->m_mesh_data.vertices[i].x < 0)
-			m_debug_mesh->m_mesh_data.vertices[i].x = min.x - 0.1f;
+			m_debug_mesh->m_mesh_data.vertices[i].x = min.x;
 		if (m_debug_mesh->m_mesh_data.vertices[i].y < 0)
-			m_debug_mesh->m_mesh_data.vertices[i].y = min.y - 0.1f;
+			m_debug_mesh->m_mesh_data.vertices[i].y = min.y;
 		if (m_debug_mesh->m_mesh_data.vertices[i].z < 0)
-			m_debug_mesh->m_mesh_data.vertices[i].z = min.z - 0.1f;
+			m_debug_mesh->m_mesh_data.vertices[i].z = min.z;
 
 		if (m_debug_mesh->m_mesh_data.vertices[i].x > 0)
-			m_debug_mesh->m_mesh_data.vertices[i].x = max.x + 0.1f;
+			m_debug_mesh->m_mesh_data.vertices[i].x = max.x;
 		if (m_debug_mesh->m_mesh_data.vertices[i].y > 0)
-			m_debug_mesh->m_mesh_data.vertices[i].y = max.y + 0.1f;
+			m_debug_mesh->m_mesh_data.vertices[i].y = max.y;
 		if (m_debug_mesh->m_mesh_data.vertices[i].z > 0)
-			m_debug_mesh->m_mesh_data.vertices[i].z = max.z + 0.1f;
+			m_debug_mesh->m_mesh_data.vertices[i].z = max.z;
 	}
 }

@@ -52,7 +52,7 @@ void Entity::update(float dt)
 void Entity::engine_update(float dt)
 {
 	if (collider != NULL && transform != NULL)
-		collider->update_bb(mesh->get_min(), mesh->get_max(), transform->get_rotation_matrix());
+		collider->update_bb(mesh->get_min(), mesh->get_max(), transform->get_rotation_matrix()*transform->get_scale_matrix());
 }
 
 void Entity::collision(Entity* other_entity)
