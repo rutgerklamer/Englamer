@@ -3,7 +3,29 @@ Englamer
 
 Englamer is a game making framework which uses openGL as a rendering system
 
+It uses a component system to enable all sorts of crazy ideas, A light with a mesh, particle system collider, transform and a material? No problem It handles it just fine.
+
+Things I've finished:
+
+- Components(Light, Mesh, Collider, Transform, Material and particle system) (will be updated!)
+- Rendering system
+- Debug rendering system
+- Frustum culling
+- Collision (No response yet)
+- OBJ loading
+- And many more, check the source
+
+Things I wish to implement:
+- Child - parent system
+- PBR (Maybe not sure)
+- Animations (Maybe not sure)
+- And many more, Will update the list
+
+If you'd like to watch updates, check out my youtube:
+https://www.youtube.com/channel/UC2Jn7d_2eIhIwHAlNDO-Bwg/videos
+
 ![](demo.png?raw=true)
+
 
 Building
 -----
