@@ -6,6 +6,7 @@
 #include "Englamer/Components/Collider.h"
 #include "Englamer/Components/Light.h"
 #include "Englamer/Components/Material.h"
+#include "Englamer/Components/ParticleSystem.h"
 
 class Entity
 {
@@ -23,5 +24,6 @@ private:
 		Collider* collider;
 		Light* light;
 		Material* material;
+		ParticleSystem* particle_system;
 };
 #endif ENTITY_H

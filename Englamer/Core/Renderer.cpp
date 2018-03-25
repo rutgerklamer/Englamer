@@ -25,44 +25,12 @@ void Renderer::render_scene(Superscene* scene, Shader* shader)
 #ifdef _DEBUG
 		shader->Use();
 #endif _DEBUG
+	if (scene->m_children[i]->get_component(PARTICLESYSTEM) != NULL)
+		for (int p = 0; p < ((ParticleSystem*)scene->m_children[i]->get_component(PARTICLESYSTEM))->m_particles.size(); p++)
+			render_particle(((ParticleSystem*)scene->m_children[i]->get_component(PARTICLESYSTEM))->m_particles[p], shader, scene->get_camera());
 		if (scene->m_children[i] != NULL && scene->m_children[i]->get_component(MESH) != NULL && scene->m_children[i]->get_component(MESH)->get_enabled() && scene->get_camera()->is_in_frustum(scene->m_children[i])) {
-			Entity* entity = scene->m_children[i];
-			glUniform3f(glGetUniformLocation(shader->shaderProgram, "camera_position"), scene->get_camera()->position.x, scene->get_camera()->position.y, scene->get_camera()->position.z);
-			glUniformMatrix4fv(glGetUniformLocation(shader->shaderProgram, "model"), 1, GL_FALSE, glm::value_ptr(((Transform*)entity->get_component(TRANSFORM))->get_model_matrix()));
-			glUniformMatrix4fv(glGetUniformLocation(shader->shaderProgram, "view"), 1, GL_FALSE, glm::value_ptr(scene->get_camera()->get_view_matrix()));
-			glUniformMatrix4fv(glGetUniformLocation(shader->shaderProgram, "projection"), 1, GL_FALSE, glm::value_ptr(scene->get_camera()->get_projection_matrix()));
-			for (int l = 0; l < 10; l++)
-			{
-				glUniform1f(glGetUniformLocation(shader->shaderProgram, ("lights[" + std::to_string(l) + "].is_light").c_str()), 0);
-			}
-			for (int l = 0; l < scene->m_lights.size(); l++)
-			{
-				glUniform3f(glGetUniformLocation(shader->shaderProgram, ("lights[" + std::to_string(l) + "].color").c_str()), ((Light*)scene->m_lights[l]->get_component(LIGHT))->get_light_color().x, ((Light*)scene->m_lights[l]->get_component(LIGHT))->get_light_color().y, ((Light*)scene->m_lights[l]->get_component(LIGHT))->get_light_color().z);
-				glUniform3f(glGetUniformLocation(shader->shaderProgram, ("lights[" + std::to_string(l) + "].position").c_str()), ((Transform*)scene->m_lights[l]->get_component(TRANSFORM))->position.x, ((Transform*)scene->m_lights[l]->get_component(TRANSFORM))->position.y, ((Transform*)scene->m_lights[l]->get_component(TRANSFORM))->position.z);
-				glUniform1f(glGetUniformLocation(shader->shaderProgram, ("lights[" + std::to_string(l) + "].specular_strength").c_str()), ((Light*)scene->m_lights[l]->get_component(LIGHT))->get_specular_light_strength());
-				glUniform1f(glGetUniformLocation(shader->shaderProgram, ("lights[" + std::to_string(l) + "].intensity").c_str()), ((Light*)scene->m_lights[l]->get_component(LIGHT))->get_intensity());
-				glUniform1f(glGetUniformLocation(shader->shaderProgram, ("lights[" + std::to_string(l) + "].is_light").c_str()), 1);
-			}
-			if (entity->get_component(MATERIAL) != NULL)
-			glUniform3f(glGetUniformLocation(shader->shaderProgram, ("material.ambient")), ((Material*)entity->get_component(MATERIAL))->get_ambient().x, ((Material*)entity->get_component(MATERIAL))->get_ambient().y, ((Material*)entity->get_component(MATERIAL))->get_ambient().z);
-			glUniform3f(glGetUniformLocation(shader->shaderProgram, ("material.diffuse")), ((Material*)entity->get_component(MATERIAL))->get_diffuse().x, ((Material*)entity->get_component(MATERIAL))->get_diffuse().y, ((Material*)entity->get_component(MATERIAL))->get_diffuse().z);
-			glUniform3f(glGetUniformLocation(shader->shaderProgram, ("material.specular")), ((Material*)entity->get_component(MATERIAL))->get_specular().x, ((Material*)entity->get_component(MATERIAL))->get_specular().y, ((Material*)entity->get_component(MATERIAL))->get_specular().z);
-			glUniform1f(glGetUniformLocation(shader->shaderProgram, ("material.shininess")), ((Material*)entity->get_component(MATERIAL))->get_shininess());
-			glUniform1f(glGetUniformLocation(shader->shaderProgram, ("material.reflectivity")), ((Material*)entity->get_component(MATERIAL))->get_reflectivity());
-			if (entity->get_component(MATERIAL) != NULL) {
-				if (((Material*)entity->get_component(MATERIAL))->get_texture() != 0) {
-					glActiveTexture(GL_TEXTURE0);
-					glBindTexture(GL_TEXTURE_2D, ((Material*)entity->get_component(MATERIAL))->get_texture());
-					glUniform1i(glGetUniformLocation(shader->shaderProgram, "main_texture"), 0);
-					glUniform3f(glGetUniformLocation(shader->shaderProgram, "color"), 0, 0, 0);
-				} else {
-					glUniform3f(glGetUniformLocation(shader->shaderProgram, "color"), ((Material*)entity->get_component(MATERIAL))->get_color().x, ((Material*)entity->get_component(MATERIAL))->get_color().y, ((Material*)entity->get_component(MATERIAL))->get_color().z);
-				}
-			} else {
-				glUniform3f(glGetUniformLocation(shader->shaderProgram, "color"), 0,0,0);
-			}
-			((Mesh*)entity->get_component(MESH))->draw();
-			glDrawArrays(GL_TRIANGLES, 0, ((Mesh*)entity->get_component(MESH))->get_buffer_size());
+			render_entity(scene->m_children[i], shader, scene->get_camera(), scene->m_lights);
+
 		}
 #ifdef _DEBUG
 		if (scene->m_children[i] && scene->m_children[i]->get_component(MESH) && scene->get_debug_camera()->is_in_frustum(scene->m_children[i]))
@@ -73,6 +41,59 @@ void Renderer::render_scene(Superscene* scene, Shader* shader)
 //	render_debug_camera(shader, scene->get_camera(), scene->get_camera());
 //	render_debug_camera(shader, scene->get_debug_camera(), scene->get_camera());
 #endif _DEBUG
+}
+
+void Renderer::render_entity(Entity* entity, Shader* shader, Camera* camera, std::vector<Entity*> lights)
+{
+	glUniform3f(glGetUniformLocation(shader->shaderProgram, "camera_position"), camera->position.x, camera->position.y, camera->position.z);
+	glUniformMatrix4fv(glGetUniformLocation(shader->shaderProgram, "model"), 1, GL_FALSE, glm::value_ptr(((Transform*)entity->get_component(TRANSFORM))->get_model_matrix()));
+	glUniformMatrix4fv(glGetUniformLocation(shader->shaderProgram, "view"), 1, GL_FALSE, glm::value_ptr(camera->get_view_matrix()));
+	glUniformMatrix4fv(glGetUniformLocation(shader->shaderProgram, "projection"), 1, GL_FALSE, glm::value_ptr(camera->get_projection_matrix()));
+	for (int l = 0; l < 10; l++)
+	{
+		glUniform1f(glGetUniformLocation(shader->shaderProgram, ("lights[" + std::to_string(l) + "].is_light").c_str()), 0);
+	}
+	for (int l = 0; l < lights.size(); l++)
+	{
+		glUniform3f(glGetUniformLocation(shader->shaderProgram, ("lights[" + std::to_string(l) + "].color").c_str()), ((Light*)lights[l]->get_component(LIGHT))->get_light_color().x, ((Light*)lights[l]->get_component(LIGHT))->get_light_color().y, ((Light*)lights[l]->get_component(LIGHT))->get_light_color().z);
+		glUniform3f(glGetUniformLocation(shader->shaderProgram, ("lights[" + std::to_string(l) + "].position").c_str()), ((Transform*)lights[l]->get_component(TRANSFORM))->position.x, ((Transform*)lights[l]->get_component(TRANSFORM))->position.y, ((Transform*)lights[l]->get_component(TRANSFORM))->position.z);
+		glUniform1f(glGetUniformLocation(shader->shaderProgram, ("lights[" + std::to_string(l) + "].specular_strength").c_str()), ((Light*)lights[l]->get_component(LIGHT))->get_specular_light_strength());
+		glUniform1f(glGetUniformLocation(shader->shaderProgram, ("lights[" + std::to_string(l) + "].intensity").c_str()), ((Light*)lights[l]->get_component(LIGHT))->get_intensity());
+		glUniform1f(glGetUniformLocation(shader->shaderProgram, ("lights[" + std::to_string(l) + "].is_light").c_str()), 1);
+	}
+	if (entity->get_component(MATERIAL) != NULL)
+	glUniform3f(glGetUniformLocation(shader->shaderProgram, ("material.ambient")), ((Material*)entity->get_component(MATERIAL))->get_ambient().x, ((Material*)entity->get_component(MATERIAL))->get_ambient().y, ((Material*)entity->get_component(MATERIAL))->get_ambient().z);
+	glUniform3f(glGetUniformLocation(shader->shaderProgram, ("material.diffuse")), ((Material*)entity->get_component(MATERIAL))->get_diffuse().x, ((Material*)entity->get_component(MATERIAL))->get_diffuse().y, ((Material*)entity->get_component(MATERIAL))->get_diffuse().z);
+	glUniform3f(glGetUniformLocation(shader->shaderProgram, ("material.specular")), ((Material*)entity->get_component(MATERIAL))->get_specular().x, ((Material*)entity->get_component(MATERIAL))->get_specular().y, ((Material*)entity->get_component(MATERIAL))->get_specular().z);
+	glUniform1f(glGetUniformLocation(shader->shaderProgram, ("material.shininess")), ((Material*)entity->get_component(MATERIAL))->get_shininess());
+	glUniform1f(glGetUniformLocation(shader->shaderProgram, ("material.reflectivity")), ((Material*)entity->get_component(MATERIAL))->get_reflectivity());
+	if (entity->get_component(MATERIAL) != NULL) {
+		if (((Material*)entity->get_component(MATERIAL))->get_texture() != 0) {
+			glActiveTexture(GL_TEXTURE0);
+			glBindTexture(GL_TEXTURE_2D, ((Material*)entity->get_component(MATERIAL))->get_texture());
+			glUniform1i(glGetUniformLocation(shader->shaderProgram, "main_texture"), 0);
+			glUniform3f(glGetUniformLocation(shader->shaderProgram, "color"), 0, 0, 0);
+		} else {
+			glUniform3f(glGetUniformLocation(shader->shaderProgram, "color"), ((Material*)entity->get_component(MATERIAL))->get_color().x, ((Material*)entity->get_component(MATERIAL))->get_color().y, ((Material*)entity->get_component(MATERIAL))->get_color().z);
+		}
+	} else {
+		glUniform3f(glGetUniformLocation(shader->shaderProgram, "color"), 0,0,0);
+	}
+	((Mesh*)entity->get_component(MESH))->draw();
+	glDrawArrays(GL_TRIANGLES, 0, ((Mesh*)entity->get_component(MESH))->get_buffer_size());
+}
+
+void Renderer::render_particle(Particle* particle, Shader* shader, Camera* camera)
+{
+	glUniform3f(glGetUniformLocation(shader->shaderProgram, "camera_position"), camera->position.x, camera->position.y, camera->position.z);
+	glUniformMatrix4fv(glGetUniformLocation(shader->shaderProgram, "model"), 1, GL_FALSE, glm::value_ptr(particle->get_model_matrix()));
+	glUniformMatrix4fv(glGetUniformLocation(shader->shaderProgram, "view"), 1, GL_FALSE, glm::value_ptr(camera->get_view_matrix()));
+	glUniformMatrix4fv(glGetUniformLocation(shader->shaderProgram, "projection"), 1, GL_FALSE, glm::value_ptr(camera->get_projection_matrix()));
+	for (int l = 0; l < 10; l++)
+		glUniform1f(glGetUniformLocation(shader->shaderProgram, ("lights[" + std::to_string(l) + "].is_light").c_str()), 0);
+	glUniform3f(glGetUniformLocation(shader->shaderProgram, "color"), particle->get_color().x, particle->get_color().y, particle->get_color().z);
+	particle->get_mesh()->draw();
+	glDrawArrays(GL_TRIANGLES, 0, particle->get_mesh()->get_buffer_size());
 }
 
 void Renderer::render_skybox(Skybox* skybox, Shader* shader, Camera* camera)

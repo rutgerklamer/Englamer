@@ -7,6 +7,7 @@ Entity::Entity()
 	collider = NULL;
 	light = NULL;
 	material = NULL;
+	particle_system = NULL;
 }
 
 Entity::~Entity()
@@ -28,6 +29,8 @@ void Entity::add_component(Component* component)
 		this->light = (Light*)component;
 	if (component->get_component_type() == MATERIAL)
 		this->material = (Material*)component;
+	if (component->get_component_type() == PARTICLESYSTEM)
+		this->particle_system = (ParticleSystem*)component;
 }
 
 Component* Entity::get_component(component_type c)
@@ -42,6 +45,8 @@ Component* Entity::get_component(component_type c)
 		return this->light;
 	else if (c == MATERIAL)
 		return this->material;
+	else if (c == PARTICLESYSTEM)
+		return this->particle_system;
 }
 
 void Entity::update(float dt)
@@ -53,6 +58,8 @@ void Entity::engine_update(float dt)
 {
 	if (collider != NULL && transform != NULL)
 		collider->update_bb(mesh->get_min(), mesh->get_max(), transform->get_rotation_matrix()*transform->get_scale_matrix());
+	if (particle_system != NULL)
+		particle_system->update(dt);
 }
 
 void Entity::collision(Entity* other_entity)

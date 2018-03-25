@@ -107,6 +107,8 @@ set(ENGLAMER_SOURCE
 	  Englamer/Components/Collider.cpp
 	  Englamer/Components/Light.cpp
     Englamer/Components/Material.cpp
+    Englamer/Components/ParticleSystem.cpp
+    Englamer/Components/Particle.cpp
 	  Englamer/Utils/Resourcemanager.cpp
 	  Englamer/Utils/Frustum.cpp
     Englamer/Utils/Time.cpp

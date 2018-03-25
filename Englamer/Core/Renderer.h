@@ -17,6 +17,8 @@ class Renderer {
 		~Renderer();
 		void render_scene(Superscene* scene, Shader* shader);
 		void render_skybox(Skybox* skybox, Shader* shader, Camera* camera);
+		void render_entity(Entity* entity, Shader* shader, Camera* camera, std::vector<Entity*> lights);
+		void render_particle(Particle* particle, Shader* shader, Camera* camera);
 #ifdef _DEBUG
 		void render_debug_mesh(Entity* entity, Shader* shader, Camera* camera);
 		void render_debug_camera(Shader* shader, Camera* camera, Camera* render_camera);
