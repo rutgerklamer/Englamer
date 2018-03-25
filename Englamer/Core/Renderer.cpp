@@ -2,7 +2,6 @@
 
 Renderer::Renderer()
 {
-	m_skybox_shader = new Shader("Data/Shaders/skybox_shader.vs", "Data/Shaders/skybox_shader.fs");
 #ifdef _DEBUG
 	m_debug_mesh = new Mesh();
 	m_debug_mesh->make_box();
@@ -18,7 +17,7 @@ Renderer::~Renderer()
 void Renderer::render_scene(Superscene* scene, Shader* shader)
 {
 	if (scene->get_skybox() != NULL)
-		render_skybox(scene->get_skybox(), m_skybox_shader, scene->get_camera());
+		render_skybox(scene->get_skybox(), scene->get_skybox()->get_shader(), scene->get_camera());
 #ifndef _DEBUG
 	shader->Use();
 #endif _DEBUG
@@ -49,11 +48,12 @@ void Renderer::render_scene(Superscene* scene, Shader* shader)
 			glUniform3f(glGetUniformLocation(shader->shaderProgram, ("material.diffuse")), ((Material*)entity->get_component(MATERIAL))->get_diffuse().x, ((Material*)entity->get_component(MATERIAL))->get_diffuse().y, ((Material*)entity->get_component(MATERIAL))->get_diffuse().z);
 			glUniform3f(glGetUniformLocation(shader->shaderProgram, ("material.specular")), ((Material*)entity->get_component(MATERIAL))->get_specular().x, ((Material*)entity->get_component(MATERIAL))->get_specular().y, ((Material*)entity->get_component(MATERIAL))->get_specular().z);
 			glUniform1f(glGetUniformLocation(shader->shaderProgram, ("material.shininess")), ((Material*)entity->get_component(MATERIAL))->get_shininess());
+			glUniform1f(glGetUniformLocation(shader->shaderProgram, ("material.reflectivity")), ((Material*)entity->get_component(MATERIAL))->get_reflectivity());
 			if (entity->get_component(MATERIAL) != NULL) {
 				if (((Material*)entity->get_component(MATERIAL))->get_texture() != 0) {
 					glActiveTexture(GL_TEXTURE0);
 					glBindTexture(GL_TEXTURE_2D, ((Material*)entity->get_component(MATERIAL))->get_texture());
-					glUniform1i(glGetUniformLocation(shader->shaderProgram, "texture"), 0);
+					glUniform1i(glGetUniformLocation(shader->shaderProgram, "main_texture"), 0);
 					glUniform3f(glGetUniformLocation(shader->shaderProgram, "color"), 0, 0, 0);
 				} else {
 					glUniform3f(glGetUniformLocation(shader->shaderProgram, "color"), ((Material*)entity->get_component(MATERIAL))->get_color().x, ((Material*)entity->get_component(MATERIAL))->get_color().y, ((Material*)entity->get_component(MATERIAL))->get_color().z);
@@ -79,10 +79,7 @@ void Renderer::render_skybox(Skybox* skybox, Shader* shader, Camera* camera)
 {
 	shader->Use();
 	glUniformMatrix4fv(glGetUniformLocation(shader->shaderProgram, "proj"), 1, GL_FALSE, glm::value_ptr(camera->get_projection_matrix()));
- glActiveTexture(GL_TEXTURE0);
- glBindTexture(GL_TEXTURE_CUBE_MAP, skybox->get_cubemap());
- glUniform1i(glGetUniformLocation(shader->shaderProgram, "skybox"), 0);
- glUniformMatrix4fv(glGetUniformLocation(shader->shaderProgram, "view"), 1, GL_FALSE, glm::value_ptr(glm::mat4(glm::mat3(camera->get_view_matrix()))));
+ 	glUniformMatrix4fv(glGetUniformLocation(shader->shaderProgram, "view"), 1, GL_FALSE, glm::value_ptr(glm::mat4(glm::mat3(camera->get_view_matrix()))));
 
  skybox->draw();
 

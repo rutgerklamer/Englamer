@@ -9,6 +9,7 @@ Material::Material() : Component()
 	m_material.diffuse = glm::vec3(0.01, 0.01, 0.01);
 	m_material.specular = glm::vec3(0.4, 0.4, 0.4);
 	m_material.shininess = 0.078125f;
+	m_material.reflectivity = 0.2;
 }
 
 Material::~Material()
@@ -93,4 +94,14 @@ void Material::load_cubemap(std::string right, std::string left, std::string up,
     faces2.push_back(front.c_str());
 
    m_material.cubemap_id = Resourcemanager::load_cubemap(faces2);
+}
+
+void Material::set_reflectivity(float r)
+{
+	m_material.reflectivity = r;
+}
+
+float Material::get_reflectivity()
+{
+	return m_material.reflectivity;
 }

@@ -38,7 +38,6 @@ class Core {
 		Display*	 m_display;
 		Camera*		 m_camera;
 		Scenemanager m_scenemanager;
-		Shader* shader;
 		Renderer* renderer;
 		Time time;
 };

@@ -17,7 +17,6 @@ class Renderer {
 		~Renderer();
 		void render_scene(Superscene* scene, Shader* shader);
 		void render_skybox(Skybox* skybox, Shader* shader, Camera* camera);
-		Shader* m_skybox_shader;
 #ifdef _DEBUG
 		void render_debug_mesh(Entity* entity, Shader* shader, Camera* camera);
 		void render_debug_camera(Shader* shader, Camera* camera, Camera* render_camera);

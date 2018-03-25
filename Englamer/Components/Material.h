@@ -12,6 +12,7 @@ typedef struct {
     glm::vec3 specular;
 		glm::vec3 color;
     float shininess;
+    float reflectivity;
 		uint texture_id;
     uint cubemap_id;
 } MMaterial;
@@ -34,6 +35,8 @@ class Material : public Component {
 		void get_shininess(float s);
     uint get_cubemap();
     void load_cubemap(std::string right, std::string left, std::string up, std::string down, std::string back, std::string front);
+    void set_reflectivity(float r);
+    float get_reflectivity();
 	private:
 		MMaterial m_material;
 };

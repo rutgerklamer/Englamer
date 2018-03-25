@@ -22,6 +22,8 @@ class Superscene {
 		Camera* get_camera();
 		virtual void update(float dt);
 		void update_children(float dt);
+		Shader* get_shader();
+		void load_shader(const char* vp, const char* fp);
 #ifdef _DEBUG
 		void debug_update(float dt);
 		Camera* get_debug_camera();
@@ -31,6 +33,7 @@ class Superscene {
 		std::vector<Entity*> m_lights;
 	private:
 		Skybox* m_skybox;
+		Shader* shader;
 		Camera*				 m_camera;
 #ifdef _DEBUG
 		Camera*				 m_debug_camera;

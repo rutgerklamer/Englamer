@@ -2,6 +2,7 @@
 
 Superscene::Superscene()
 {
+	shader = new Shader("Data/Shaders/shader.vs", "Data/Shaders/shader.fs");
 	m_camera = new Camera();
 	m_skybox = NULL;
 #ifdef _DEBUG
@@ -106,6 +107,11 @@ void Superscene::add_skybox(std::string right, std::string left, std::string up,
 	if (m_skybox != NULL)
 		remove_skybox();
 	m_skybox = new Skybox(right, left, up, down, back, front);
+
+  shader->Use();
+  glActiveTexture(GL_TEXTURE0);
+  glBindTexture(GL_TEXTURE_CUBE_MAP, m_skybox->get_cubemap());
+  glUniform1i(glGetUniformLocation(shader->shaderProgram, "skybox"), 0);
 }
 
 void Superscene::remove_skybox()
@@ -117,4 +123,15 @@ void Superscene::remove_skybox()
 Skybox* Superscene::get_skybox()
 {
 	return m_skybox;
+}
+
+Shader* Superscene::get_shader()
+{
+	return this->shader;
+}
+
+void Superscene::load_shader(const char* vp, const char* fp)
+{
+	delete shader;
+	shader = new Shader(vp, fp);
 }

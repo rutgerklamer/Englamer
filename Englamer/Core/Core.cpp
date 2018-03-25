@@ -19,7 +19,6 @@ void Core::init()
 	glfwSetCursorPosCallback(Display::m_window, Input::input.mouse_callback);
 	glfwSetMouseButtonCallback(Display::m_window, Input::input.mouse_button_callback);
 
-	shader = new Shader("Data/Shaders/shader.vs", "Data/Shaders/shader.fs");
 	renderer = new Renderer();
 }
 
@@ -30,7 +29,7 @@ void Core::run()
 		m_scenemanager.get_scene()->update(time.get_deltatime());
 		m_scenemanager.get_scene()->update_children(time.get_deltatime());
 		m_display->update();
-		renderer->render_scene(m_scenemanager.get_scene(), shader);
+		renderer->render_scene(m_scenemanager.get_scene(), m_scenemanager.get_scene()->get_shader());
 #ifdef _DEBUG
 		m_scenemanager.get_scene()->debug_update(time.get_deltatime());
 #endif _DEBUG

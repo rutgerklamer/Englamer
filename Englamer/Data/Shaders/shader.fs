@@ -21,13 +21,15 @@ struct Material {
     vec3 diffuse;
     vec3 specular;
     float shininess;
+    float reflectivity;
 };
 
 uniform Material material;
 
 uniform vec3 color;
 uniform vec3 camera_position;
-uniform sampler2D texture;
+uniform sampler2D main_texture;
+uniform samplerCube skybox;
 
 vec3 getLight(Light light_data)
 {
@@ -49,7 +51,7 @@ void main() {
   vec3 diffuse_texture;
   if (color.r + color.g + color.b == 0)
    {
-     diffuse_texture = texture2D(texture, vec2(tex_coords.x, 1.0 - tex_coords.y)).xyz;
+     diffuse_texture = texture2D(main_texture, vec2(tex_coords.x, 1.0 - tex_coords.y)).xyz;
    } else {
      diffuse_texture = vec3(color.r, color.g, color.b);
    }
@@ -62,5 +64,13 @@ void main() {
       result = vec3(1,1,1);
     }
    }
-   final_color = vec4(diffuse_texture * result,1);
+   vec4 reflective_color;
+   if (material.reflectivity > 0)
+   {
+    vec3 I = normalize(fragment_position - camera_position);
+    vec3 R = reflect(I, normalize(normal));
+    reflective_color = mix(vec4(diffuse_texture,1),vec4(texture(skybox, R).rgb, 1.0),0.5f);
+   }
+
+   final_color = mix(vec4(diffuse_texture * result,1), reflective_color, material.reflectivity);
 }
