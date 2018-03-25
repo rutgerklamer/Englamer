@@ -13,6 +13,7 @@ typedef struct {
 		glm::vec3 color;
     float shininess;
 		uint texture_id;
+    uint cubemap_id;
 } MMaterial;
 
 class Material : public Component {
@@ -31,6 +32,8 @@ class Material : public Component {
 		void get_diffuse(glm::vec3 d);
 		void get_specular(glm::vec3 s);
 		void get_shininess(float s);
+    uint get_cubemap();
+    void load_cubemap(std::string right, std::string left, std::string up, std::string down, std::string back, std::string front);
 	private:
 		MMaterial m_material;
 };

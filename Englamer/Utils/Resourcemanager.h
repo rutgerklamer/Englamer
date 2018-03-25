@@ -10,9 +10,11 @@ class Resourcemanager {
 		static Resourcemanager m_resourcemanager;
 		static std::vector<vertex> get_model(const char* file);
 		static uint get_texture(const char* file);
+		static uint load_cubemap(std::vector<const char*> faces);
 	private:
 		std::map<const char*, std::vector<vertex>> models;
 		std::map<const char*, uint> textures;
+
 };
 
 #endif RESOURCEMANAGER_H

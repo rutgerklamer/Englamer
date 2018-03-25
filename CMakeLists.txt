@@ -99,6 +99,7 @@ set(ENGLAMER_SOURCE
 	  Englamer/Core/Camera.cpp
 	  Englamer/Scene/Scenemanager.cpp
 	  Englamer/Scene/Superscene.cpp
+    Englamer/Scene/Skybox.cpp
 	  Englamer/Entities/Entity.cpp
 	  Englamer/Components/Mesh.cpp
 	  Englamer/Components/Component.cpp

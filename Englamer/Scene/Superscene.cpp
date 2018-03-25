@@ -3,6 +3,7 @@
 Superscene::Superscene()
 {
 	m_camera = new Camera();
+	m_skybox = NULL;
 #ifdef _DEBUG
 	m_debug_camera = new Camera();
 # endif _DEBUG
@@ -98,4 +99,22 @@ void Superscene::update_children(float dt)
 			}
 		}
 	}
+}
+
+void Superscene::add_skybox(std::string right, std::string left, std::string up, std::string down, std::string back, std::string front)
+{
+	if (m_skybox != NULL)
+		remove_skybox();
+	m_skybox = new Skybox(right, left, up, down, back, front);
+}
+
+void Superscene::remove_skybox()
+{
+	delete m_skybox;
+	m_skybox = NULL;
+}
+
+Skybox* Superscene::get_skybox()
+{
+	return m_skybox;
 }

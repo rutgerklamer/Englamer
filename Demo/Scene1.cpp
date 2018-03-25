@@ -2,6 +2,7 @@
 
 Scene1::Scene1() : Superscene()
 {
+	this->add_skybox("Assets/posx.jpg", "Assets/negx.jpg", "Assets/posy.jpg", "Assets/negy.jpg", "Assets/posz.jpg", "Assets/negz.jpg");
 	for (int i = 0; i < 6; i++)
 	{
 			Player* p = new Player();
@@ -26,7 +27,7 @@ void Scene1::update(float dt)
 	//	((Transform*)m_children[i]->get_component(TRANSFORM))->position.z = cos(i + glfwGetTime()) * 10.0f;
 	}
 #ifdef _DEBUG
-	//get_debug_camera()->process_mouse_movement(5.0f * dt * 100.0f, 0);
+	get_debug_camera()->process_mouse_movement(5.0f * dt * 100.0f, 0);
 #endif _DEBUG
 	if (Input::get_key(GLFW_KEY_D))
 		get_camera()->position += get_camera()->get_right() * dt * 30.0f;

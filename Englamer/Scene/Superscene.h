@@ -7,6 +7,7 @@
 #include "Englamer/Core/Camera.h"
 #include "Englamer/Core/Input.h"
 #include "Englamer/Maths/Intersect.h"
+#include "Englamer/Scene/Skybox.h"
 
 class Superscene {
 	public:
@@ -14,6 +15,9 @@ class Superscene {
 		virtual ~Superscene();
 		void cleanup();
 		void add_child(Entity* entity);
+		void add_skybox(std::string right, std::string left, std::string up, std::string down, std::string back, std::string front);
+		Skybox* get_skybox();
+		void remove_skybox();
 		void remove_child(Entity* entity);
 		Camera* get_camera();
 		virtual void update(float dt);
@@ -26,6 +30,7 @@ class Superscene {
 		std::vector<Entity*> m_children;
 		std::vector<Entity*> m_lights;
 	private:
+		Skybox* m_skybox;
 		Camera*				 m_camera;
 #ifdef _DEBUG
 		Camera*				 m_debug_camera;

@@ -75,3 +75,22 @@ void Material::get_shininess(float s)
 {
 	m_material.shininess = s;
 }
+
+
+uint Material::get_cubemap()
+{
+  return m_material.cubemap_id;
+}
+
+void Material::load_cubemap(std::string right, std::string left, std::string up, std::string down, std::string back, std::string front)
+{
+  std::vector<const char*> faces2;
+    faces2.push_back(right.c_str());
+    faces2.push_back(left.c_str());
+    faces2.push_back(up.c_str());
+    faces2.push_back(down.c_str());
+    faces2.push_back(back.c_str());
+    faces2.push_back(front.c_str());
+
+   m_material.cubemap_id = Resourcemanager::load_cubemap(faces2);
+}

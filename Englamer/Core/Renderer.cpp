@@ -2,6 +2,7 @@
 
 Renderer::Renderer()
 {
+	m_skybox_shader = new Shader("Data/Shaders/skybox_shader.vs", "Data/Shaders/skybox_shader.fs");
 #ifdef _DEBUG
 	m_debug_mesh = new Mesh();
 	m_debug_mesh->make_box();
@@ -16,6 +17,8 @@ Renderer::~Renderer()
 
 void Renderer::render_scene(Superscene* scene, Shader* shader)
 {
+	if (scene->get_skybox() != NULL)
+		render_skybox(scene->get_skybox(), m_skybox_shader, scene->get_camera());
 #ifndef _DEBUG
 	shader->Use();
 #endif _DEBUG
@@ -70,6 +73,28 @@ void Renderer::render_scene(Superscene* scene, Shader* shader)
 //	render_debug_camera(shader, scene->get_camera(), scene->get_camera());
 //	render_debug_camera(shader, scene->get_debug_camera(), scene->get_camera());
 #endif _DEBUG
+}
+
+void Renderer::render_skybox(Skybox* skybox, Shader* shader, Camera* camera)
+{
+	shader->Use();
+	glUniformMatrix4fv(glGetUniformLocation(shader->shaderProgram, "proj"), 1, GL_FALSE, glm::value_ptr(camera->get_projection_matrix()));
+ glActiveTexture(GL_TEXTURE0);
+ glBindTexture(GL_TEXTURE_CUBE_MAP, skybox->get_cubemap());
+ glUniform1i(glGetUniformLocation(shader->shaderProgram, "skybox"), 0);
+ glUniformMatrix4fv(glGetUniformLocation(shader->shaderProgram, "view"), 1, GL_FALSE, glm::value_ptr(glm::mat4(glm::mat3(camera->get_view_matrix()))));
+
+ skybox->draw();
+
+ glDisable(GL_CULL_FACE);
+ glDisable(GL_DEPTH_TEST);
+ glCullFace(GL_FRONT);
+ glDepthMask(GL_FALSE);
+ glDrawArrays(GL_TRIANGLES, 0, skybox->get_buffer_size());
+ glDepthMask(GL_TRUE);
+ glEnable(GL_CULL_FACE);
+ glCullFace(GL_BACK);
+ glEnable(GL_DEPTH_TEST);
 }
 
 #ifdef _DEBUG
