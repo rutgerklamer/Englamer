@@ -29,12 +29,17 @@ void Renderer::render_scene(Superscene* scene, Shader* shader)
 			glUniformMatrix4fv(glGetUniformLocation(shader->shaderProgram, "model"), 1, GL_FALSE, glm::value_ptr(((Transform*)entity->get_component(TRANSFORM))->get_model_matrix()));
 			glUniformMatrix4fv(glGetUniformLocation(shader->shaderProgram, "view"), 1, GL_FALSE, glm::value_ptr(scene->get_camera()->get_view_matrix()));
 			glUniformMatrix4fv(glGetUniformLocation(shader->shaderProgram, "projection"), 1, GL_FALSE, glm::value_ptr(scene->get_camera()->get_projection_matrix()));
+			for (int l = 0; l < 10; l++)
+			{
+				glUniform1f(glGetUniformLocation(shader->shaderProgram, ("lights[" + std::to_string(l) + "].is_light").c_str()), 0);
+			}
 			for (int l = 0; l < scene->m_lights.size(); l++)
 			{
 				glUniform3f(glGetUniformLocation(shader->shaderProgram, ("lights[" + std::to_string(l) + "].color").c_str()), ((Light*)scene->m_lights[l]->get_component(LIGHT))->get_light_color().x, ((Light*)scene->m_lights[l]->get_component(LIGHT))->get_light_color().y, ((Light*)scene->m_lights[l]->get_component(LIGHT))->get_light_color().z);
 				glUniform3f(glGetUniformLocation(shader->shaderProgram, ("lights[" + std::to_string(l) + "].position").c_str()), ((Transform*)scene->m_lights[l]->get_component(TRANSFORM))->position.x, ((Transform*)scene->m_lights[l]->get_component(TRANSFORM))->position.y, ((Transform*)scene->m_lights[l]->get_component(TRANSFORM))->position.z);
 				glUniform1f(glGetUniformLocation(shader->shaderProgram, ("lights[" + std::to_string(l) + "].specular_strength").c_str()), ((Light*)scene->m_lights[l]->get_component(LIGHT))->get_specular_light_strength());
 				glUniform1f(glGetUniformLocation(shader->shaderProgram, ("lights[" + std::to_string(l) + "].intensity").c_str()), ((Light*)scene->m_lights[l]->get_component(LIGHT))->get_intensity());
+				glUniform1f(glGetUniformLocation(shader->shaderProgram, ("lights[" + std::to_string(l) + "].is_light").c_str()), 1);
 			}
 			if (entity->get_component(MATERIAL) != NULL)
 			glUniform3f(glGetUniformLocation(shader->shaderProgram, ("material.ambient")), ((Material*)entity->get_component(MATERIAL))->get_ambient().x, ((Material*)entity->get_component(MATERIAL))->get_ambient().y, ((Material*)entity->get_component(MATERIAL))->get_ambient().z);

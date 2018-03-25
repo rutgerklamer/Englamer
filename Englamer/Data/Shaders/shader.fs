@@ -11,6 +11,7 @@ struct Light {
     vec3 color;
     float specular_strength;
     float intensity;
+    float is_light;
 };
 #define light_amount 10
 uniform Light lights[light_amount];
@@ -55,7 +56,11 @@ void main() {
 
    vec3 result = vec3(0,0,0);
    for (int i = 0; i < light_amount; i++){
-    result += getLight(lights[i]);
+    if (lights[i].is_light > 0.0f) {
+      result += getLight(lights[i]);
+    } else if (i == 0) {
+      result = vec3(1,1,1);
+    }
    }
    final_color = vec4(diffuse_texture * result,1);
 }

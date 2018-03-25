@@ -57,7 +57,7 @@ void Frustum::calculate_frustum(glm::vec3 right, glm::vec3 up, glm::vec3 front, 
 	v = fbr - fbl;
 	u = nbr - fbl;
 	n = glm::cross(v, u);
-	D = -glm::dot(n, fbl) * 0.96f;
+	D = -glm::dot(n, fbl) * 0.8f;
 	planes.push_back(Plane{ n, D });
 	// RIGHT
 	v = fbr - nbr;
