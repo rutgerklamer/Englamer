@@ -43,7 +43,6 @@ Libraries
 - glfw: <http://www.glfw.org/>
 - glew: <http://glew.sourceforge.net/>
 - glm: <http://glm.g-truc.net/>
-- chaiscript: <http://chaiscript.com/>
 
 References
 -----
