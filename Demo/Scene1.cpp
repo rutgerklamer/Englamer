@@ -2,11 +2,11 @@
 
 Scene1::Scene1() : Superscene()
 {
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 6; i++)
 	{
 			Player* p = new Player();
-			((Transform*)p->get_component(TRANSFORM))->position.x = sin(i) * 10.0f;
-			((Transform*)p->get_component(TRANSFORM))->position.z = cos(i) * 10.0f;
+			((Transform*)p->get_component(TRANSFORM))->position.x = sin(i) * 15.0f;
+			((Transform*)p->get_component(TRANSFORM))->position.z = cos(i) * 15.0f;
 			add_child(p);
 	}
 	sl = new SceneLight();

@@ -2,8 +2,11 @@
 
 Renderer::Renderer()
 {
+#ifdef _DEBUG
 	m_debug_mesh = new Mesh();
 	m_debug_mesh->make_box();
+	m_debug_shader = new Shader("Data/Shaders/debug_shader.vs", "Data/Shaders/debug_shader.fs");
+#endif _DEBUG
 }
 
 Renderer::~Renderer()
@@ -13,8 +16,13 @@ Renderer::~Renderer()
 
 void Renderer::render_scene(Superscene* scene, Shader* shader)
 {
+#ifndef _DEBUG
 	shader->Use();
+#endif _DEBUG
 	for (int i = 0; i < scene->m_children.size(); i++) {
+#ifdef _DEBUG
+		shader->Use();
+#endif _DEBUG
 		if (scene->m_children[i] != NULL && scene->m_children[i]->get_component(MESH) != NULL && scene->m_children[i]->get_component(MESH)->get_enabled() && scene->get_camera()->is_in_frustum(scene->m_children[i])) {
 			Entity* entity = scene->m_children[i];
 			glUniform3f(glGetUniformLocation(shader->shaderProgram, "camera_position"), scene->get_camera()->position.x, scene->get_camera()->position.y, scene->get_camera()->position.z);
@@ -50,7 +58,7 @@ void Renderer::render_scene(Superscene* scene, Shader* shader)
 		}
 #ifdef _DEBUG
 		if (scene->m_children[i] && scene->m_children[i]->get_component(MESH) && scene->get_debug_camera()->is_in_frustum(scene->m_children[i]))
-			render_debug_mesh(scene->m_children[i], shader, scene->get_camera());
+			render_debug_mesh(scene->m_children[i], m_debug_shader, scene->get_camera());
 #endif _DEBUG
 	}
 #ifdef _DEBUG

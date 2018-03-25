@@ -4,8 +4,9 @@ Player::Player() : Entity()
 {
 	Mesh* m = new Mesh();
 	this->add_component(m);
-	((Mesh*)this->get_component(MESH))->make_model("Assets/teapot.obj");
+	((Mesh*)this->get_component(MESH))->make_model("Assets/dragon.obj");
 	Transform* t = new Transform();
+	t->rotation.y = rand()%45;
 	this->add_component(t);
 	Collider* c = new Collider();
 	this->add_component(c);
