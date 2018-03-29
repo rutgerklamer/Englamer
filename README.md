@@ -114,7 +114,7 @@ Scene1::Scene1() : Superscene()
 {
 	// This should be an entity
 	Player* p = new Player();
-	// Set it's position
+	// Set it's scale
 	((Transform*)p->get_component(TRANSFORM))->scale = glm::vec3 (5,5,5);
 	// Add it to the scene
 	this->add-child(p);
@@ -128,7 +128,7 @@ Scene1::~Scene1()
 
 void Scene1::update(float dt)
 {
-	// This update get's calles every frame
+	// This update get's called every frame
 	// You can update the entity here or in his own class
 }
 ```
