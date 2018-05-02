@@ -4,6 +4,7 @@
 #include <iostream>
 
 #include "Englamer/Core/Config.h"
+#include "Englamer/Core/Input.h"
 
 class Display
 {

@@ -43,6 +43,10 @@ void Display::create_context()
 		//Enable depth testing
 		glEnable(GL_DEPTH_TEST);
 		glDepthFunc(GL_LESS);
+
+		glfwSetKeyCallback(m_window, Input::input.key_callback);
+		glfwSetCursorPosCallback(m_window, Input::input.mouse_callback);
+		glfwSetMouseButtonCallback(m_window, Input::input.mouse_button_callback);
 		//Enable backface culling
 		//glEnable(GL_CULL_FACE);
 		//glCullFace(GL_BACK);

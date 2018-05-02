@@ -41,9 +41,9 @@ glm::vec3 Collider::get_obb_max()
 void Collider::update_bb(glm::vec3 min, glm::vec3 max, glm::mat4 m)
 {
 	glm::mat4 absModel(glm::abs(m[0][0]), glm::abs(m[0][1]), glm::abs(m[0][2]), glm::abs(m[0][3]),
-											 glm::abs(m[1][0]), glm::abs(m[1][1]), glm::abs(m[1][2]), glm::abs(m[1][3]),
-											 glm::abs(m[2][0]), glm::abs(m[2][1]), glm::abs(m[2][2]), glm::abs(m[2][3]),
-											 glm::abs(m[3][0]), glm::abs(m[3][1]), glm::abs(m[3][2]), glm::abs(m[3][3]));
+										 glm::abs(m[1][0]), glm::abs(m[1][1]), glm::abs(m[1][2]), glm::abs(m[1][3]),
+										 glm::abs(m[2][0]), glm::abs(m[2][1]), glm::abs(m[2][2]), glm::abs(m[2][3]),
+										 glm::abs(m[3][0]), glm::abs(m[3][1]), glm::abs(m[3][2]), glm::abs(m[3][3]));
 	aabb_min = min;
 	aabb_max = max;
   glm::vec3 center = (aabb_min + aabb_max) / 2.0f;

@@ -67,12 +67,7 @@ void Camera::update()
 
 void Camera::update_camera_vector()
 {
-	glm::vec3 f;
-	f.x = cos(glm::radians(this->yaw)) * cos(glm::radians(this->pitch));
-	f.y = sin(glm::radians(this->pitch));
-	f.z = sin(glm::radians(this->yaw)) * cos(glm::radians(this->pitch));
-
-	this->front = glm::normalize(f);
+	this->front = glm::normalize(glm::vec3(cos(glm::radians(this->yaw)) * cos(glm::radians(this->pitch)), sin(glm::radians(this->pitch)), sin(glm::radians(this->yaw)) * cos(glm::radians(this->pitch))));
 
 	this->right = glm::normalize(glm::cross(this->front, this->worldUp));
 	this->up = glm::normalize(glm::cross(this->right, this->front));

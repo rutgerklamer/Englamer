@@ -13,11 +13,7 @@ Core::~Core()
 
 void Core::init()
 {
-	Input::input.set_camera(m_scenemanager.get_scene()->get_camera());
-	// TODO Move to display asap.
-	glfwSetKeyCallback(Display::m_window, Input::input.key_callback);
-	glfwSetCursorPosCallback(Display::m_window, Input::input.mouse_callback);
-	glfwSetMouseButtonCallback(Display::m_window, Input::input.mouse_button_callback);
+	Input::input.set_camera(m_scenemanager.get_scene()->get_camera());	
 
 	renderer = new Renderer();
 }
