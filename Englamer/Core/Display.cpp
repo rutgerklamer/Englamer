@@ -21,6 +21,7 @@ void Display::create_context()
 	// Set the openGL version, MAJOR.MINOR
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, config::major);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, config::minor);
+	//For Linux and Mac OS
 	#if !defined(_WIN32) && !defined(WIN32)
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 		glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
@@ -44,6 +45,7 @@ void Display::create_context()
 		glEnable(GL_DEPTH_TEST);
 		glDepthFunc(GL_LESS);
 
+		//Set input
 		glfwSetKeyCallback(m_window, Input::input.key_callback);
 		glfwSetCursorPosCallback(m_window, Input::input.mouse_callback);
 		glfwSetMouseButtonCallback(m_window, Input::input.mouse_button_callback);
@@ -52,7 +54,7 @@ void Display::create_context()
 		//glCullFace(GL_BACK);
 	}
 
-	// If user set the mouse to be lockes, lock the mouse
+	// If user set the mouse to be locked, lock the mouse
 	if (config::mouse_lock)
 		glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 }

@@ -31,10 +31,6 @@ public:
 	*/
 	static glm::vec2 get_mouse_position();
 	/**
-	* Return the scale of the window
-	*/
-	static glm::vec2 get_window_size();
-	/**
 	* Set the pointer of the camera of the scene to the pointer in input
 	* Takes in a camera pointer, this is the camera you want to set
 	*/
@@ -44,14 +40,7 @@ public:
 	* Takes in a float deltaTime, you probably want to use this
 	*/
 	static void update(float deltaTime);
-	/**
-	* Get the camera
-	*/
-	static Camera* get_camera();
-	/**
-	* Set the pointer of window to the same as Display
-	* Takes in the window we created in Display
-	*/
+
 	static Input input;
 	static bool get_key(int k) { return (k>=0 && k<=1024 ? input.keys[k] : false); }
 	static bool get_key_down(int k) { return (k>=0 && k<=1024 ? input.keysDown[k] : false); }

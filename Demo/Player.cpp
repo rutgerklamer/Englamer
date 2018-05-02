@@ -21,9 +21,7 @@ Player::~Player()
 	delete this->get_component(MESH);
 	delete this->get_component(MATERIAL);
 	delete this->get_component(TRANSFORM);
-	delete this->get_component(PARTICLESYSTEM);
-	//delete this->get_component(COLLIDER);
-	//delete this->get_component(LIGHT);
+	delete this->get_component(COLLIDER);
 }
 
 void Player::update(float dt)

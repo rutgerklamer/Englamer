@@ -2,9 +2,9 @@
 
 Input Input::input;
 
-void Input::set_window(GLFWwindow* window)
+void Input::set_window(GLFWwindow* w)
 {
-	window = window;
+	window = w;
 }
 
 void Input::update(float deltaTime)
@@ -22,20 +22,6 @@ void Input::update(float deltaTime)
 void Input::set_camera(Camera* camera)
 {
 	input.camera = camera;
-}
-
-
-Camera* Input::get_camera()
-{
-	return input.camera;
-}
-
-glm::vec2 Input::get_window_size()
-{
-	int width;
-	int height;
-	glfwGetWindowSize(input.window, &width, &height);
-	return glm::vec2(width, height);
 }
 
 glm::vec2 Input::get_mouse_position()
